@@ -12,12 +12,13 @@ app.use(bodyParser.json());
 
 require('dotenv').config();
 const url = process.env.MONGODB_URI;
-const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(url);
-client.connect();
+const mongoose = require("mongoose");
+mongoose.connect(url, {dbName: 'Art-Share'})
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.log(err));
 
 var api = require('./api.js');
-api.setApp(app, client);
+api.setApp(app, mongoose);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
