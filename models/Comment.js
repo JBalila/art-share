@@ -22,6 +22,10 @@ const CommentSchema = new Schema({
     Likes: {
         type: Number,
         default: 0
+    },
+    LikedBy: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        default: []
     }
 });
 

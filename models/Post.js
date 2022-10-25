@@ -23,6 +23,10 @@ const PostSchema = new Schema({
         type: Number,
         default: 0
     },
+    LikedBy: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        default: []
+    },
     IsPublic: {
         type: Boolean,
         default: true
