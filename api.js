@@ -37,25 +37,30 @@ exports.setApp = function(app, client) {
         // Incoming: firstName, lastName, email, username, password
         // Outgoing: error
 
-        let ret;
+        let ret, userExists;
         const { firstName, lastName, email, username, password } = req.body;
 
-        let userExists = await User.findOne().or([{Username: username}, {Email: email}]);
+        userExists = await User.findOne().or([{Username: username}, {Email: email}]);
+        if (userExists) {
+            if (userExists.Username === username)
+                ret = {error: 'A user with that username already exists'};
+            else
+                ret = {error: 'A user with that email already exists'};
 
-        if (userExists)
-            ret = {error: 'A user with that username/email already exists'};
-        else {
-            let newUser = new User({
-                FirstName: firstName,
-                LastName: lastName,
-                Email: email,
-                Username: username,
-                Password: password
-            });
-
-            await newUser.save();
-            ret = {error: ''};
+            res.status(200).json(ret);
+            return;
         }
+
+        let newUser = new User({
+            FirstName: firstName,
+            LastName: lastName,
+            Email: email,
+            Username: username,
+            Password: password
+        });
+
+        await newUser.save();
+        ret = {error: ''};
 
         res.status(200).json(ret);
     });
