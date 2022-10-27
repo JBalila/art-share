@@ -177,7 +177,7 @@ exports.setUserEndpoints = function(app, client) {
 
         try {
             if (userID === friendID)
-            throw {message: 'You cannot decline your own friend-request'};
+                throw {message: 'You cannot decline your own friend-request'};
         
             // Error-handling for <user>
             let user = await User.findOne({_id: userID});
@@ -213,6 +213,50 @@ exports.setUserEndpoints = function(app, client) {
                 friend.SentRequests.splice(indexInSent, 1);
             if (indexInPending !== -1)
                 friend.PendingRequests.splice(indexInPending, 1);
+            await friend.save();
+        }
+        catch(e) {
+            ret = {error: e.message};
+            res.status(200).json(ret);
+            return;
+        }
+
+        ret = {error: ''};
+        res.status(200).json(ret);
+    });
+
+    app.post('/api/removeFriend', async(req, res, next) => {
+        // Incoming: userID (_id of logged-in user) and friendID (_id of friend to remove)
+        // Outgoing: error
+
+        let ret;
+        const { userID, friendID } = req.body;
+
+        try {
+            if (userID === friendID)
+                throw {message: 'You cannot remove yourself as a friend'};
+
+            // Error-handling for <user>
+            let user = await User.findOne({_id: userID});
+            if (user === null)
+                throw {message: `User with ${userID} does not exist`};
+            if (!user.Clique.includes(friendID))
+                throw {message: `User with ${friendID} is not in your Clique`};
+
+            // Error-handling for <friend>
+            let friend = await User.findOne({_id: friendID});
+            if (friend === null)
+                throw {message: `User with ${friendID} does not exist`};
+            if (!friend.Clique.includes(userID))
+                throw {message: `User with ${userID} is not in friend's Clique`};
+
+            // Remove <user> and <friend> from each others' Cliques
+            let indexInClique = user.Clique.indexOf(friendID);
+            user.Clique.splice(indexInClique, 1);
+            await user.save();
+
+            indexInClique = friend.Clique.indexOf(userID);
+            friend.Clique.splice(indexInClique, 1);
             await friend.save();
         }
         catch(e) {
