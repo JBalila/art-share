@@ -1,5 +1,7 @@
 require('express');
 require('mongodb');
+const { json } = require('body-parser');
+// import { sendConfirmationEmail } from '../emailService';
 
 const jwt = require('../createJWT');
 const User = require('../models/User');
@@ -61,7 +63,48 @@ exports.setUserEndpoints = function(app, client) {
 
         await newUser.save();
         ret = {error: ''};
+        // sendConfirmationEmail(newUser);
 
+        res.status(200).json(ret);
+    });
+
+    app.post('/api/sendFriendRequest', async(req, res, next) => {
+        // Incoming: userID (_id of logged-in user) and friendID (_id of friend to add)
+        // Outgoing: error
+
+        let ret;
+        const { userID, friendID } = req.body;
+
+        // Track <user>'s request to <friend> to prevent duplicate sendings
+        try {
+            if (userID === friendID)
+                throw {message: 'You cannot send a friend-request to yourself'};
+
+            let user = await User.findOne({_id: userID});
+            if (user === null)
+                throw {message: `User with ${userID} does not exist`};
+            if (user.SentRequests.includes(friendID))
+                throw {message: 'You have already sent a friend-request to this user'};
+
+            user.SentRequests.push(friendID);
+            await user.save();
+
+            let friend = await User.findOne({_id: friendID});
+            if (friend === null)
+                throw {message: `User with ${friendID} does not exist`};
+            if (friend.PendingRequests.includes(userID))
+                throw {message: 'You have already sent a friend-request to this user'};
+
+            friend.PendingRequests.push(userID);
+            await friend.save();
+        }
+        catch(e) {
+            ret = {error: e.message};
+            res.status(200).json(ret);
+            return;
+        }
+
+        ret = {error:''};
         res.status(200).json(ret);
     });
 }

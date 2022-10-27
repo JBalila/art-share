@@ -35,17 +35,3 @@ exports.refresh = function(token) {
 
     return _createToken(userObject);
 }
-
-exports.createEmailToken = function(username) {
-    let ret;
-
-    try {
-        let emailToken = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'});
-        ret = {emailToken: emailToken}
-    }
-    catch(e) {
-        ret = {error: e.message};
-    }
-
-    return ret;
-}
