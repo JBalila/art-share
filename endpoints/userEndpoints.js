@@ -109,4 +109,62 @@ exports.setUserEndpoints = function(app, client) {
         ret = {error:''};
         res.status(200).json(ret);
     });
+
+    app.post('/api/acceptFriendRequest', async(req, res, next) => {
+        // Incoming: userID (_id of logged-in user) and friendID (_id of friend-request to accept)
+        // Outgoing: error
+
+        let ret;
+        const { userID, friendID } = req.body;
+
+        try {
+            if (userID === friendID)
+                throw {message: 'You cannot accept your own friend-request'};
+            
+            // Error-handling for <user>
+            let user = await User.findOne({_id: userID});
+            if (user === null)
+                throw {message: `User with ${userID} does not exist`};
+            if (!user.PendingRequests.includes(friendID))
+                throw {message: `You did not receive a friend-request from ${friendID}`};
+            if (user.Clique.includes(friendID))
+                throw {message: `User with ${friendID} is already in your Clique`};
+
+            // Error-handling for <friend>
+            let friend = await User.findOne({_id: friendID});
+            if (friend === null)
+                throw {message: `User with ${friendID} does not exist`};
+            if (!friend.SentRequests.includes(userID))
+                throw {message: `User with ${friendID} did not send a friend-request to you`};
+            if (friend.Clique.includes(userID))
+                throw {message: `User with ${userID} is already in user with ${friendID}'s Clique`};
+            
+            // Remove <friendID> from <user>'s PendingRequests and SentRequests
+            let indexInPending = user.PendingRequests.indexOf(friendID);
+            let indexInSent = user.SentRequests.indexOf(friendID);
+            if (indexInPending !== -1)
+                user.PendingRequests.splice(indexInPending, 1);
+            if (indexInSent !== -1)
+                user.SentRequests.splice(indexInSent, 1);
+            user.Clique.push(friendID);
+            await user.save();
+
+            // Remove <userID> from <friend>'s SentRequests and PendingRequests
+            indexInSent = friend.SentRequests.indexOf(userID);
+            indexInPending = friend.PendingRequests.indexOf(userID);
+            if (indexInSent !== -1)
+                friend.SentRequests.splice(indexInSent, 1);
+            if (indexInPending !== -1)
+                friend.PendingRequests.splice(indexInPending, 1);
+            friend.Clique.push(userID);
+            await friend.save();
+        } catch(e) {
+            ret = {error: e.message};
+            res.status(200).json(ret);
+            return;
+        }
+
+        ret = {error:''};
+        res.status(200).json(ret);
+    });
 }
