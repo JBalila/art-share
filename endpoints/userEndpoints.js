@@ -80,21 +80,23 @@ exports.setUserEndpoints = function(app, client) {
             if (userID === friendID)
                 throw {message: 'You cannot send a friend-request to yourself'};
 
+            // Error-handling for <user>
             let user = await User.findOne({_id: userID});
             if (user === null)
                 throw {message: `User with ${userID} does not exist`};
             if (user.SentRequests.includes(friendID))
                 throw {message: 'You have already sent a friend-request to this user'};
 
-            user.SentRequests.push(friendID);
-            await user.save();
-
+            // Error-handling for <friend>
             let friend = await User.findOne({_id: friendID});
             if (friend === null)
                 throw {message: `User with ${friendID} does not exist`};
             if (friend.PendingRequests.includes(userID))
                 throw {message: 'You have already sent a friend-request to this user'};
 
+            // Update <user> and <friend> documents after checking for all errors
+            user.SentRequests.push(friendID);
+            await user.save();
             friend.PendingRequests.push(userID);
             await friend.save();
         }
