@@ -9,19 +9,21 @@
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 div#outer-rectangle {
-  background-color: lightblue;
-  width: 500px;
-  height: 400px;
+  background-color: #cc5871;
+  width: 450px;
+  height: 600px;
+  box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.5);
 }
 
 div#inner-rectangle {
   background-color: white;
   width: 400px;
-  height: 300px;
-  margin: 50px;
+  height: 550px;
+  margin: 25px;
 }

@@ -7,7 +7,8 @@ function App() {
   return(
     <div className="background" style={{ backgroundImage: `url(${background})` }}>
       <div className="container">
-        <Page />
+        <Page className="leftPage"/>
+        <Page className="rightPage"/>
       </div>
     </div>
   )
