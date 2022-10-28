@@ -4,7 +4,6 @@ const { json } = require('body-parser');
 
 const jwt = require('../createJWT');
 const User = require('../models/User');
-const emailService = require('../emailService');
 const errorHandling = require('./errorHandling/userErrorHandling');
 
 exports.setUserEndpoints = function(app, client) {
@@ -62,8 +61,7 @@ exports.setUserEndpoints = function(app, client) {
             Password: password
         });
 
-        emailService.sendConfirmationEmail(newUser);
-        // await newUser.save();
+        await newUser.save();
         ret = {error: ''};
 
         res.status(200).json(ret);
