@@ -1,10 +1,11 @@
 require('express');
 require('mongodb');
 const { json } = require('body-parser');
-// import { sendConfirmationEmail } from '../emailService';
 
 const jwt = require('../createJWT');
 const User = require('../models/User');
+const emailService = require('../emailService');
+const errorHandling = require('./errorHandling/userErrorHandling');
 
 exports.setUserEndpoints = function(app, client) {
     app.post('/api/login', async(req, res, next) => {
@@ -61,19 +62,19 @@ exports.setUserEndpoints = function(app, client) {
             Password: password
         });
 
-        await newUser.save();
+        emailService.sendConfirmationEmail(newUser);
+        // await newUser.save();
         ret = {error: ''};
-        // sendConfirmationEmail(newUser);
 
         res.status(200).json(ret);
     });
 
     app.post('/api/sendFriendRequest', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user), accessToken (of userID), and friendID (_id of friend to add)
+        // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
         // Outgoing: accessToken OR error
 
         let ret;
-        const { userID, accessToken, friendID } = req.body;
+        const { username, friendUsername, accessToken } = req.body;
 
         // Check if <accessToken> is expired
         try {
@@ -89,27 +90,15 @@ exports.setUserEndpoints = function(app, client) {
 
         // Track <user>'s request to <friend> to prevent duplicate sendings
         try {
-            if (userID === friendID)
-                throw {message: 'You cannot send a friend-request to yourself'};
+            let user = await User.findOne({Username: username});
+            let friend = await User.findOne({Username: friendUsername});
 
-            // Error-handling for <user>
-            let user = await User.findOne({_id: userID});
-            if (user === null)
-                throw {message: `User with ${userID} does not exist`};
-            if (user.SentRequests.includes(friendID))
-                throw {message: 'You have already sent a friend-request to this user'};
-
-            // Error-handling for <friend>
-            let friend = await User.findOne({_id: friendID});
-            if (friend === null)
-                throw {message: `User with ${friendID} does not exist`};
-            if (friend.PendingRequests.includes(userID))
-                throw {message: 'You have already sent a friend-request to this user'};
+            errorHandling.handleErrors('/api/sendFriendRequest', user, friend);
 
             // Update <user> and <friend> documents after checking for all errors
-            user.SentRequests.push(friendID);
+            user.SentRequests.push(friend._id);
             await user.save();
-            friend.PendingRequests.push(userID);
+            friend.PendingRequests.push(user._id);
             await friend.save();
         }
         catch(e) {
@@ -132,11 +121,11 @@ exports.setUserEndpoints = function(app, client) {
     });
 
     app.post('/api/acceptFriendRequest', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user), accessToken (of userID), and friendID (_id of friend-request to accept)
-        // Outgoing: error
+        // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
+        // Outgoing: accessToken OR error
 
         let ret;
-        const { userID, accessToken, friendID } = req.body;
+        const { username, friendUsername, accessToken } = req.body;
 
         // Check if <accessToken> is expired
         try {
@@ -151,45 +140,29 @@ exports.setUserEndpoints = function(app, client) {
         }
 
         try {
-            if (userID === friendID)
-                throw {message: 'You cannot accept your own friend-request'};
-            
-            // Error-handling for <user>
-            let user = await User.findOne({_id: userID});
-            if (user === null)
-                throw {message: `User with ${userID} does not exist`};
-            if (!user.PendingRequests.includes(friendID))
-                throw {message: `You did not receive a friend-request from ${friendID}`};
-            if (user.Clique.includes(friendID))
-                throw {message: `User with ${friendID} is already in your Clique`};
+            let user = await User.findOne({Username: username});
+            let friend = await User.findOne({Username: friendUsername});
 
-            // Error-handling for <friend>
-            let friend = await User.findOne({_id: friendID});
-            if (friend === null)
-                throw {message: `User with ${friendID} does not exist`};
-            if (!friend.SentRequests.includes(userID))
-                throw {message: `User with ${friendID} did not send a friend-request to you`};
-            if (friend.Clique.includes(userID))
-                throw {message: `User with ${userID} is already in user with ${friendID}'s Clique`};
+            errorHandling.handleErrors('/api/acceptFriendRequest', user, friend);
             
             // Remove <friendID> from Sent/PendingRequests and add to <user>'s Clique
-            let indexInPending = user.PendingRequests.indexOf(friendID);
-            let indexInSent = user.SentRequests.indexOf(friendID);
+            let indexInPending = user.PendingRequests.indexOf(friend._id);
+            let indexInSent = user.SentRequests.indexOf(friend._id);
             if (indexInPending !== -1)
                 user.PendingRequests.splice(indexInPending, 1);
             if (indexInSent !== -1)
                 user.SentRequests.splice(indexInSent, 1);
-            user.Clique.push(friendID);
+            user.Clique.push(friend._id);
             await user.save();
 
             // Remove <userID> from Sent/PendingRequests and add to <friend>'s Clique
-            indexInSent = friend.SentRequests.indexOf(userID);
-            indexInPending = friend.PendingRequests.indexOf(userID);
+            indexInSent = friend.SentRequests.indexOf(user._id);
+            indexInPending = friend.PendingRequests.indexOf(user._id);
             if (indexInSent !== -1)
                 friend.SentRequests.splice(indexInSent, 1);
             if (indexInPending !== -1)
                 friend.PendingRequests.splice(indexInPending, 1);
-            friend.Clique.push(userID);
+            friend.Clique.push(user._id);
             await friend.save();
         } 
         catch(e) {
@@ -212,11 +185,11 @@ exports.setUserEndpoints = function(app, client) {
     });
 
     app.post('/api/declineFriendRequest', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user), accessToken (of userID) and friendID (_id of friend-request to decline)
-        // Outgoing: error
+        // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
+        // Outgoing: accessToken OR error
 
         let ret;
-        const { userID, accessToken, friendID } = req.body;
+        const { username, friendUsername, accessToken } = req.body;
 
         // Check if <accessToken> is expired
         try {
@@ -231,30 +204,14 @@ exports.setUserEndpoints = function(app, client) {
         }
 
         try {
-            if (userID === friendID)
-                throw {message: 'You cannot decline your own friend-request'};
-        
-            // Error-handling for <user>
-            let user = await User.findOne({_id: userID});
-            if (user === null)
-                throw {message: `User with ${userID} does not exist`};
-            if (!user.PendingRequests.includes(friendID))
-                throw {message: `You did not receive a friend-request from ${friendID}`};
-            if (user.Clique.includes(friendID))
-                throw {message: `User with ${friendID} is already in your Clique`};
+            let user = await User.findOne({Username: username});
+            let friend = await User.findOne({Username: friendUsername});
 
-            // Error-handling for <friend>
-            let friend = await User.findOne({_id: friendID});
-            if (friend === null)
-                throw {message: `User with ${friendID} does not exist`};
-            if (!friend.SentRequests.includes(userID))
-                throw {message: `User with ${friendID} did not send a friend-request to you`};
-            if (friend.Clique.includes(userID))
-                throw {message: `User with ${userID} is already in user with ${friendID}'s Clique`};
+            errorHandling.handleErrors('/api/declineFriendRequest', user, friend);
 
-            // Remove <friendID> from Sent/PendingRequests without adding to <user>'s Clique
-            let indexInPending = user.PendingRequests.indexOf(friendID);
-            let indexInSent = user.SentRequests.indexOf(friendID);
+            // Remove <friend> from Sent/PendingRequests without adding to <user>'s Clique
+            let indexInPending = user.PendingRequests.indexOf(friend._id);
+            let indexInSent = user.SentRequests.indexOf(friend._id);
             if (indexInPending !== -1)
                 user.PendingRequests.splice(indexInPending, 1);
             if (indexInSent !== -1)
@@ -262,8 +219,8 @@ exports.setUserEndpoints = function(app, client) {
             await user.save();
 
             // Remove <userID> from Sent/PendingRequests without adding to <friend>'s Clique
-            indexInSent = friend.SentRequests.indexOf(userID);
-            indexInPending = friend.PendingRequests.indexOf(userID);
+            indexInSent = friend.SentRequests.indexOf(user._id);
+            indexInPending = friend.PendingRequests.indexOf(user._id);
             if (indexInSent !== -1)
                 friend.SentRequests.splice(indexInSent, 1);
             if (indexInPending !== -1)
@@ -290,11 +247,11 @@ exports.setUserEndpoints = function(app, client) {
     });
 
     app.post('/api/removeFriend', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user), accessToken (of userID), and friendID (_id of friend to remove)
-        // Outgoing: error
+        // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
+        // Outgoing: accessToken OR error
 
         let ret;
-        const { userID, accessToken, friendID } = req.body;
+        const { username, friendUsername, accessToken } = req.body;
 
         // Check if <accessToken> is expired
         try {
@@ -309,29 +266,17 @@ exports.setUserEndpoints = function(app, client) {
         }
 
         try {
-            if (userID === friendID)
-                throw {message: 'You cannot remove yourself as a friend'};
+            let user = await User.findOne({Username: username});
+            let friend = await User.findOne({Username: friendUsername});
 
-            // Error-handling for <user>
-            let user = await User.findOne({_id: userID});
-            if (user === null)
-                throw {message: `User with ${userID} does not exist`};
-            if (!user.Clique.includes(friendID))
-                throw {message: `User with ${friendID} is not in your Clique`};
-
-            // Error-handling for <friend>
-            let friend = await User.findOne({_id: friendID});
-            if (friend === null)
-                throw {message: `User with ${friendID} does not exist`};
-            if (!friend.Clique.includes(userID))
-                throw {message: `User with ${userID} is not in friend's Clique`};
+            errorHandling.handleErrors('/api/removeFriend', user, friend);
 
             // Remove <user> and <friend> from each others' Cliques
-            let indexInClique = user.Clique.indexOf(friendID);
+            let indexInClique = user.Clique.indexOf(friend._id);
             user.Clique.splice(indexInClique, 1);
             await user.save();
 
-            indexInClique = friend.Clique.indexOf(userID);
+            indexInClique = friend.Clique.indexOf(user._id);
             friend.Clique.splice(indexInClique, 1);
             await friend.save();
         }
