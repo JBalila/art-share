@@ -21,7 +21,7 @@ exports.setUserEndpoints = function(app, client) {
         if (result) {
             try {
                 let userObject = Object.assign({}, result)._doc;        // <result> is immutable, so this code bypasses that
-                let token = jwt.createToken(JSON.stringify(userObject));
+                let token = jwt.createToken(userObject);
                 ret = Object.assign({}, userObject, token);
             }
             catch(e) {
@@ -69,11 +69,23 @@ exports.setUserEndpoints = function(app, client) {
     });
 
     app.post('/api/sendFriendRequest', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user) and friendID (_id of friend to add)
-        // Outgoing: error
+        // Incoming: userID (_id of logged-in user), accessToken (of userID), and friendID (_id of friend to add)
+        // Outgoing: accessToken OR error
 
         let ret;
-        const { userID, friendID } = req.body;
+        const { userID, accessToken, friendID } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {error: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         // Track <user>'s request to <friend> to prevent duplicate sendings
         try {
@@ -106,16 +118,37 @@ exports.setUserEndpoints = function(app, client) {
             return;
         }
 
-        ret = {error:''};
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = refreshedToken;
         res.status(200).json(ret);
     });
 
     app.post('/api/acceptFriendRequest', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user) and friendID (_id of friend-request to accept)
+        // Incoming: userID (_id of logged-in user), accessToken (of userID), and friendID (_id of friend-request to accept)
         // Outgoing: error
 
         let ret;
-        const { userID, friendID } = req.body;
+        const { userID, accessToken, friendID } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {error: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         try {
             if (userID === friendID)
@@ -158,22 +191,44 @@ exports.setUserEndpoints = function(app, client) {
                 friend.PendingRequests.splice(indexInPending, 1);
             friend.Clique.push(userID);
             await friend.save();
-        } catch(e) {
+        } 
+        catch(e) {
             ret = {error: e.message};
             res.status(200).json(ret);
             return;
         }
 
-        ret = {error:''};
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = refreshedToken;
         res.status(200).json(ret);
     });
 
     app.post('/api/declineFriendRequest', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user) and friendID (_id of friend-request to decline)
+        // Incoming: userID (_id of logged-in user), accessToken (of userID) and friendID (_id of friend-request to decline)
         // Outgoing: error
 
         let ret;
-        const { userID, friendID } = req.body;
+        const { userID, accessToken, friendID } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {error: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         try {
             if (userID === friendID)
@@ -221,16 +276,37 @@ exports.setUserEndpoints = function(app, client) {
             return;
         }
 
-        ret = {error: ''};
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = refreshedToken;
         res.status(200).json(ret);
     });
 
     app.post('/api/removeFriend', async(req, res, next) => {
-        // Incoming: userID (_id of logged-in user) and friendID (_id of friend to remove)
+        // Incoming: userID (_id of logged-in user), accessToken (of userID), and friendID (_id of friend to remove)
         // Outgoing: error
 
         let ret;
-        const { userID, friendID } = req.body;
+        const { userID, accessToken, friendID } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {error: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         try {
             if (userID === friendID)
@@ -265,7 +341,16 @@ exports.setUserEndpoints = function(app, client) {
             return;
         }
 
-        ret = {error: ''};
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = refreshedToken;
         res.status(200).json(ret);
     });
 }

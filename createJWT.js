@@ -9,7 +9,7 @@ _createToken = function(userObject) {
     let ret;
 
     try {
-        let accessToken = jwt.sign(userObject, process.env.ACCESS_TOKEN_SECRET);
+        let accessToken = jwt.sign(userObject, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '20m'});
         ret = {accessToken: accessToken};
     }
     catch(e) {
@@ -32,6 +32,8 @@ exports.isExpired = function(token) {
 
 exports.refresh = function(token) {
     let userObject = jwt.decode(token, {complete: true}).payload;
+    delete userObject.iat;
+    delete userObject.exp;
 
     return _createToken(userObject);
 }
