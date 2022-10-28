@@ -1,0 +1,13 @@
+div#outer-rectangle {
+  background-color: #cc5871;
+  width: 450px;
+  height: 600px;
+  box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.5);
+}
+
+div#inner-rectangle {
+  background-color: white;
+  width: 400px;
+  height: 550px;
+  margin: 25px;
+}

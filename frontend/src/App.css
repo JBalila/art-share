@@ -1,29 +1,13 @@
 .background {
-  text-align: center;
+  /* Set background to full page */
   position: fixed;
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
-}
-
-.container {
+  /* Position the 'Page' components on background */
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
-}
-
-div#outer-rectangle {
-  background-color: #cc5871;
-  width: 450px;
-  height: 600px;
-  box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.5);
-}
-
-div#inner-rectangle {
-  background-color: white;
-  width: 400px;
-  height: 550px;
-  margin: 25px;
+  align-items: center;
 }

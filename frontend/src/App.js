@@ -6,10 +6,8 @@ import background from "./background.jpg";
 function App() {
   return(
     <div className="background" style={{ backgroundImage: `url(${background})` }}>
-      <div className="container">
         <Page className="leftPage"/>
         <Page className="rightPage"/>
-      </div>
     </div>
   )
 }
