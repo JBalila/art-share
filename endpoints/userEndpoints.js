@@ -17,16 +17,21 @@ exports.setUserEndpoints = function(app, client) {
 
         let result = await User.findOne()
             .or([{Username: username, Password: password}, {Email: username, Password: password}])
-            .select('-Password');
+            .select('-Password -__v');
 
         if (result) {
-            try {
-                let userObject = Object.assign({}, result)._doc;        // <result> is immutable, so this code bypasses that
-                let token = jwt.createToken(userObject);
-                ret = Object.assign({}, userObject, token);
+            if (!result.IsVerified) {
+                ret = {error: 'Please verify your account before logging in'};
             }
-            catch(e) {
-                ret = {error: e.message};
+            else {
+                try {
+                    let userObject = Object.assign({}, result)._doc;        // <result> is immutable, so this code bypasses that
+                    let token = jwt.createToken(userObject);
+                    ret = Object.assign({user: userObject}, token);
+                }
+                catch(e) {
+                    ret = {error: e.message};
+                }
             }
         }
         else {
@@ -63,10 +68,25 @@ exports.setUserEndpoints = function(app, client) {
         });
 
         emailService.sendConfirmationEmail(newUser);
-        // await newUser.save();
+        await newUser.save();
         ret = {error: ''};
 
         res.status(200).json(ret);
+    });
+
+    app.get('/confirmation/:token', async(req, res) => {
+        try {
+            let userID = jwt.verifyConfirmationEmail(req.params.token);
+            let user = await User.findOne({_id: userID});
+            user.IsVerified = true;
+            user.save();
+        }
+        catch(e) {
+            res.send(e);
+        }
+
+        // TODO: Change to buildPath
+        res.redirect('http://localhost:3000');
     });
 
     app.post('/api/sendFriendRequest', async(req, res, next) => {
