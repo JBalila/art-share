@@ -24,6 +24,11 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    IsVerified: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     TimeCreated: {
         type: Date,
         immutable: true,
@@ -32,10 +37,6 @@ const UserSchema = new Schema({
     Clique: {
         type: [mongoose.SchemaTypes.ObjectId],
         default: [] 
-    },
-    ProfilePublic: {
-        type: Boolean,
-        default: true
     },
     SentRequests: {
         type: [mongoose.SchemaTypes.ObjectId],

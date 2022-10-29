@@ -37,3 +37,8 @@ exports.refresh = function(token) {
 
     return _createToken(userObject);
 }
+
+exports.verifyConfirmationEmail = function(token) {
+    let verifyToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET).id;
+    return verifyToken;
+}
