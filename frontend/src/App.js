@@ -1,16 +1,16 @@
 import React from 'react';
-import Page from './Page';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import background from "./background.jpg";
+
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return(
-    <div className="background" style={{ backgroundImage: `url(${background})` }}>
-        <Page className="leftPage">
-        </Page>
-        <Page className="rightPage">
-        </Page>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/profile' index element={<ProfilePage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
