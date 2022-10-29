@@ -5,6 +5,7 @@ const { json } = require('body-parser');
 const jwt = require('../createJWT');
 const User = require('../models/User');
 const errorHandling = require('./errorHandling/userErrorHandling');
+const emailService = require('../emailService');
 
 exports.setUserEndpoints = function(app, client) {
     app.post('/api/login', async(req, res, next) => {
