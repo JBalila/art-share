@@ -32,7 +32,7 @@ function MyFriends(props) {
             // TODO: Restore accessToken into token-storage
         }
         catch (e) {
-
+            console.error(e.message);
         }
     }
 
