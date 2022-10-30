@@ -62,13 +62,11 @@ const ProfilePage = () => {
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <Page classname='leftpage'>
                 <ProfileHeader name={'jbalila'} />
-
                 <ProfileSettings />
             </Page>
 
             <Page classname='rightpage'>
                 <MyFriends clique={clique} />
-
                 <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests} />
             </Page>
         </div>

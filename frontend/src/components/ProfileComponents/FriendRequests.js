@@ -56,15 +56,15 @@ function FriendRequests(props) {
     return(
         <div>
             <h2>Sent Friend-Requests</h2>
-            <div style={{scrollBehavior: 'smooth'}}>
+            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
                 <ul style={{paddingLeft:'10px', listStyle:'none'}}>
                     {props.sentRequests.map((friend) => <li key={friend.id}>{friend.content}</li>)}
                 </ul>
             </div>
 
             <h2>Pending Friend-Requests</h2>
-            <div style={{scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
+            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
+                <ul style={{paddingLeft:'10px', paddingRight:'10px', listStyle:'none'}}>
                     {props.pendingRequests.map((friend) => 
                         <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
                         <button style={{float:'right'}} onClick={() => declineFriendReqeust(friend.content)}>Decline</button>

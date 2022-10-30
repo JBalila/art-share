@@ -7,7 +7,6 @@ function MyFriends(props) {
     let addFriendUsername;
 
     const [addFriendError, setAddFriendError] = useState('');
-    const [removeFriendError, setRemoveFriendError] = useState('');
 
     const addFriend = async event => {
         event.preventDefault();
@@ -53,11 +52,10 @@ function MyFriends(props) {
 
             let res = JSON.parse(await response.text());
             if (res.error) {
-                setRemoveFriendError(res.error);
+                console.error(res.error);
                 return;
             }
 
-            setRemoveFriendError('');
             // TODO: Remove friend from local-storage
             // TODO: Restore accessToken in localStorage
         }
@@ -69,14 +67,13 @@ function MyFriends(props) {
     return(
         <div>
             <h2>Friends</h2>
-            <div style={{scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
+            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
+                <ul style={{paddingLeft:'10px', paddingRight:'10px', listStyle:'none'}}>
                     {props.clique.map((friend) => 
                         <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
                         <button style={{float:'right'}} type='button' onClick={() => removeFriend(friend.content)}>Remove Friend</button>
                         </li>)}
                 </ul>
-                <span>{removeFriendError}</span>
             </div>
 
             <form onSubmit={ addFriend }>
@@ -85,7 +82,7 @@ function MyFriends(props) {
                     ref={(c) => addFriendUsername = c} />
                 <input type='submit' onClick={ addFriend } />
             </form>
-            <span>{addFriendError}</span>
+            <span>{addFriendError}</span> <br />
         </div>
     );
 }
