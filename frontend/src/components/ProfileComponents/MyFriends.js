@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import ReactScrollableList from 'react-scrollable-list';
 
 function MyFriends(props) {
     let myUsername = '';
@@ -40,9 +39,11 @@ function MyFriends(props) {
     return(
         <div>
             <h2>Friends</h2>
-            <ReactScrollableList 
-                heightOfItem={20} listItems={props.clique}
-                maxItemsToRender={5} style={{}} /> <br />
+            <div style={{scrollBehavior: 'smooth'}}>
+                <ul style={{listStyle:'none'}}>
+                    {props.clique.map((friend) => <li key={friend.id}>{friend.content}</li>)}
+                </ul>
+            </div>
 
             <form onSubmit={ addFriend }>
                 <span>Add a Friend   </span>
