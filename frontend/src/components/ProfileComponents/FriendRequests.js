@@ -57,18 +57,18 @@ function FriendRequests(props) {
         <div>
             <h2>Sent Friend-Requests</h2>
             <div style={{scrollBehavior: 'smooth'}}>
-                <ul style={{listStyle:'none'}}>
+                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
                     {props.sentRequests.map((friend) => <li key={friend.id}>{friend.content}</li>)}
                 </ul>
             </div>
 
             <h2>Pending Friend-Requests</h2>
             <div style={{scrollBehavior: 'smooth'}}>
-                <ul style={{listStyle:'none'}}>
+                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
                     {props.pendingRequests.map((friend) => 
-                        <li key={friend.id}>{friend.content} 
-                        <button onClick={() => acceptFriendRequest(friend.content)}>Accept</button> 
-                        <button onClick={() => declineFriendReqeust(friend.content)}>Decline</button>
+                        <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
+                        <button style={{float:'right'}} onClick={() => declineFriendReqeust(friend.content)}>Decline</button>
+                        <button style={{float:'right'}} onClick={() => acceptFriendRequest(friend.content)}>Accept</button> 
                         </li>)}
                 </ul>
             </div>
