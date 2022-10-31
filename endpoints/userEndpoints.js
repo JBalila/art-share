@@ -89,6 +89,22 @@ exports.setUserEndpoints = function(app, client) {
         res.redirect('http://localhost:3000');
     });
 
+    app.post('/api/getUsername', async(req, res, next) => {
+        // Incoming: userID (_id of user to retrieve)
+        // Outgoing: username (Username of userID) OR error
+
+        let ret;
+        const { userID } = req.body;
+
+        let user = await User.findOne({_id: userID});
+        if (user)
+            ret = user.Username;
+        else
+            ret = {error: 'A user with that ID does not exist'};
+
+        res.status(200).json(ret);
+    });
+
     app.post('/api/sendFriendRequest', async(req, res, next) => {
         // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
         // Outgoing: accessToken OR error
