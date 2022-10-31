@@ -29,6 +29,7 @@ function MyFriends(props) {
 
             setAddFriendError('');
             // TODO: Store newly sent friend-request into local-storage
+            // props.addToSentRequestIDs(res.id);
             // TODO: Restore accessToken into token-storage
         }
         catch (e) {
@@ -57,6 +58,7 @@ function MyFriends(props) {
             }
 
             // TODO: Remove friend from local-storage
+            // props.removeFromCliqueIDs(res.id);
             // TODO: Restore accessToken in localStorage
         }
         catch(e) {

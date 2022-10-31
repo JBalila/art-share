@@ -3,30 +3,32 @@ import { useState, useEffect } from 'react';
 
 import background from '../background.jpg';
 
-import Page from '../Page';
+import Page from '../components/Page';
 import ProfileHeader from '../components/ProfileComponents/ProfileHeader';
 import ProfileSettings from '../components/ProfileComponents/ProfileSettings';
 import MyFriends from '../components/ProfileComponents/MyFriends';
 import FriendRequests from '../components/ProfileComponents/FriendRequests';
 
 const ProfilePage = () => {
-    let cliqueIDs = ['634b6c200ddde7aadb180d75', '634b6c370ddde7aadb180d76'];
+    const [cliqueIDs, setCliqueIDs] = useState([]);
     const [clique, setClique] = useState([]);
-
-    let sentRequestIDs = ['634b6c200ddde7aadb180d75', '634b6c370ddde7aadb180d76'];
-    const [sentRequests, setSentRequests] = useState([]);
-
-    let pendingRequestIDs = ['634b6c200ddde7aadb180d75', '634b6c370ddde7aadb180d76'];
-    const [pendingRequests, setPendingRequests] = useState([]);
-
     useEffect(() => {
-        formatIDs('clique', cliqueIDs);
-        formatIDs('sentRequests', sentRequestIDs);
-        formatIDs('pendingRequests', pendingRequestIDs);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        formatIDs(setClique, cliqueIDs);
+    }, [JSON.stringify(cliqueIDs)]);
 
-    async function formatIDs(type, idList) {
+    const [sentRequestIDs, setSentRequestIDs] = useState([]);
+    const [sentRequests, setSentRequests] = useState([]);
+    useEffect(() => {
+        formatIDs(setSentRequests, sentRequestIDs);
+    }, [JSON.stringify(sentRequestIDs)]);
+
+    const [pendingRequestIDs, setPendingRequestIDs] = useState([]);
+    const [pendingRequests, setPendingRequests] = useState([]);
+    useEffect(() => {
+        formatIDs(setPendingRequests, pendingRequestIDs);
+    }, [JSON.stringify(pendingRequestIDs)]);
+
+    async function formatIDs(setterFunction, idList) {
         let ret = [];
 
         for (let i = 0; i < idList.length; i++) {
@@ -50,12 +52,24 @@ const ProfilePage = () => {
             }
         }
 
-        if (type === 'clique')
-            setClique(ret);
-        else if (type === 'sentRequests')
-            setSentRequests(ret);
-        else if (type === 'pendingRequests')
-            setPendingRequests(ret);
+        console.log(ret);
+        setterFunction(ret);
+    }
+
+    const addToCliqueIDs = (newID) => {
+        setCliqueIDs((arr) => [...arr, newID]);
+    }
+
+    const removeFromCliqueIDs = (newID) => {
+        setCliqueIDs(cliqueIDs.splice(cliqueIDs.indexOf(newID), 1));
+    };
+
+    const addToSentRequestIDs = (newID) => {
+        setSentRequestIDs((arr) => [...arr, newID]);
+    };
+
+    const removeFromPendingRequestIDs = (newID) => {
+        setPendingRequestIDs(sentRequestIDs.splice(sentRequestIDs.indexOf(newID), 1));
     }
 
     return(
@@ -66,8 +80,11 @@ const ProfilePage = () => {
             </Page>
 
             <Page classname='rightpage'>
-                <MyFriends clique={clique} />
-                <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests} />
+                <MyFriends clique={clique} removeFromCliqueIDs={removeFromCliqueIDs}
+                    addToSentRequestIDs={addToSentRequestIDs} />
+                <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests} 
+                    removeFromPendingRequestIDs={removeFromPendingRequestIDs}
+                    addToCliqueIDs={addToCliqueIDs} />
             </Page>
         </div>
     );

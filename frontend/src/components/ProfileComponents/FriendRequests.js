@@ -22,6 +22,9 @@ function FriendRequests(props) {
             }
 
             // TODO: Store newly accepted friend into user's Clique in local-storage
+            // props.addToCliqueIDs(res.id);
+            // TODO: Remove pending-request from list
+            // props.removeFromPendingRequestIDs(res.id);
             // TODO: Restore accessToken into token-storage
         }
         catch(e) {
@@ -46,6 +49,8 @@ function FriendRequests(props) {
                 return;
             }
 
+            // TODO: Remove pending-request from list
+            // props.removeFromPendingRequestIDs(res.id);
             // TODO: Restore accessToken into token-storage
         }
         catch(e) {
