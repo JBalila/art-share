@@ -107,7 +107,7 @@ exports.setUserEndpoints = function(app, client) {
 
     app.post('/api/sendFriendRequest', async(req, res, next) => {
         // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
-        // Outgoing: accessToken OR error
+        // Outgoing: _id of friend + accessToken OR error
 
         let ret;
         const { username, friendUsername, accessToken } = req.body;
@@ -136,6 +136,8 @@ exports.setUserEndpoints = function(app, client) {
             await user.save();
             friend.PendingRequests.push(user._id);
             await friend.save();
+
+            ret = {id: friend._id};
         }
         catch(e) {
             ret = {error: e.message};
@@ -152,13 +154,13 @@ exports.setUserEndpoints = function(app, client) {
             console.log(e.message);
         }
 
-        ret = refreshedToken;
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 
     app.post('/api/acceptFriendRequest', async(req, res, next) => {
         // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
-        // Outgoing: accessToken OR error
+        // Outgoing: _id of friend + accessToken OR error
 
         let ret;
         const { username, friendUsername, accessToken } = req.body;
@@ -200,6 +202,8 @@ exports.setUserEndpoints = function(app, client) {
                 friend.PendingRequests.splice(indexInPending, 1);
             friend.Clique.push(user._id);
             await friend.save();
+
+            ret = {id: friend._id};
         } 
         catch(e) {
             ret = {error: e.message};
@@ -216,13 +220,13 @@ exports.setUserEndpoints = function(app, client) {
             console.log(e.message);
         }
 
-        ret = refreshedToken;
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 
     app.post('/api/declineFriendRequest', async(req, res, next) => {
         // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
-        // Outgoing: accessToken OR error
+        // Outgoing: _id of friend + accessToken OR error
 
         let ret;
         const { username, friendUsername, accessToken } = req.body;
@@ -262,6 +266,8 @@ exports.setUserEndpoints = function(app, client) {
             if (indexInPending !== -1)
                 friend.PendingRequests.splice(indexInPending, 1);
             await friend.save();
+
+            ret = {id: friend._id};
         }
         catch(e) {
             ret = {error: e.message};
@@ -278,13 +284,13 @@ exports.setUserEndpoints = function(app, client) {
             console.log(e.message);
         }
 
-        ret = refreshedToken;
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 
     app.post('/api/removeFriend', async(req, res, next) => {
         // Incoming: username (Username of logged-in user), friendUsername (Username of friend to add), and accessToken
-        // Outgoing: accessToken OR error
+        // Outgoing: _id of friend + accessToken OR error
 
         let ret;
         const { username, friendUsername, accessToken } = req.body;
@@ -315,6 +321,8 @@ exports.setUserEndpoints = function(app, client) {
             indexInClique = friend.Clique.indexOf(user._id);
             friend.Clique.splice(indexInClique, 1);
             await friend.save();
+
+            ret = {id: friend._id};
         }
         catch(e) {
             ret = {error: e.message};
@@ -331,7 +339,7 @@ exports.setUserEndpoints = function(app, client) {
             console.log(e.message);
         }
 
-        ret = refreshedToken;
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 }
