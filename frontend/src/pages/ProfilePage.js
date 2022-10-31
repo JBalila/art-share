@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import background from '../background.jpg';
-
 import Page from '../components/Page';
 import ProfileHeader from '../components/ProfileComponents/ProfileHeader';
 import ProfileSettings from '../components/ProfileComponents/ProfileSettings';
 import MyFriends from '../components/ProfileComponents/MyFriends';
 import FriendRequests from '../components/ProfileComponents/FriendRequests';
+
+import background from '../background.jpg';
 
 const ProfilePage = () => {
     const [cliqueIDs, setCliqueIDs] = useState([]);
@@ -36,11 +36,11 @@ const ProfilePage = () => {
             let jsonPayload = JSON.stringify(obj);
 
             try {
-                let response = await fetch('http://localhost:5000/api/getUsername', 
+                let response = await fetch('http://localhost:5000/api/getUsername',
                     {method:'POST', body:jsonPayload, headers:{
                         'Content-Type':'application/json'
                     }});
-                
+
                 let text = await response.text();
                 if (text) {
                     let obj = {id: idList[i], content: JSON.parse(text)};
@@ -82,7 +82,7 @@ const ProfilePage = () => {
             <Page classname='rightpage'>
                 <MyFriends clique={clique} removeFromCliqueIDs={removeFromCliqueIDs}
                     addToSentRequestIDs={addToSentRequestIDs} />
-                <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests} 
+                <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests}
                     removeFromPendingRequestIDs={removeFromPendingRequestIDs}
                     addToCliqueIDs={addToCliqueIDs} />
             </Page>
