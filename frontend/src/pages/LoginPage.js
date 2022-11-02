@@ -8,6 +8,17 @@ import '../LoginRegisterPage.css';
 
 import background from "../background.jpg";
 
+function hash(string) {
+  const utf8 = new TextEncoder().encode(string);
+  return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((bytes) => bytes.toString(16).padStart(2, '0'))
+      .join('');
+    return hashHex;
+  });
+}
+
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +30,9 @@ function LoginPage() {
       return;
     }
 
-    let obj = {username: username, password: password};
+    const hashedPassword = hash(password);
+
+    let obj = {username: username, password: hashedPassword};
     let jsonPayload = JSON.stringify(obj);
 
     try {
@@ -64,10 +77,10 @@ function LoginPage() {
 
             <div className="input-format">
               <label className="label" htmlFor="Username">Username</label>
-              <input type="text" className="form-control" id="Username" placeholder="Username" 
+              <input type="text" className="form-control" id="Username" placeholder="Username"
                 value={username} onChange={(e) => setUsername(e.target.value)} />
               <label className="label" htmlFor="Password">Password</label>
-              <input type="password" className="form-control" id="Password" placeholder="Password" 
+              <input type="password" className="form-control" id="Password" placeholder="Password"
                 value={password} onChange={(e) => setPassword(e.target.value)} />
             </div> <br />
             <span>{error}</span>

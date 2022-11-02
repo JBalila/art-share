@@ -8,6 +8,17 @@ import '../LoginRegisterPage.css';
 
 import background from "../background.jpg";
 
+function hash(string) {
+  const utf8 = new TextEncoder().encode(string);
+  return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((bytes) => bytes.toString(16).padStart(2, '0'))
+      .join('');
+    return hashHex;
+  });
+}
+
 function RegisterPage() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -28,12 +39,14 @@ function RegisterPage() {
       return;
     }
 
+    const hashedPassword = hash(password);
+
     let obj = {
       firstName: 'Test',
       lastName: 'Test',
       email: email,
       username: username,
-      password: password
+      password: hashedPassword
     };
     let jsonPayload = JSON.stringify(obj);
 
@@ -75,16 +88,16 @@ function RegisterPage() {
 
             <div className="input-format">
               <label className="label" htmlFor="Email">Email</label>
-              <input type="text" className="form-control" id="Email" placeholder="Email" 
+              <input type="text" className="form-control" id="Email" placeholder="Email"
                 value={email} onChange={(e) => setEmail(e.target.value)} />
               <label className="label" htmlFor="Username">Username</label>
-              <input type="text" className="form-control" id="Username" placeholder="Username" 
+              <input type="text" className="form-control" id="Username" placeholder="Username"
                 value={username} onChange={(e) => setUsername(e.target.value)} />
               <label className="label" htmlFor="Password">Password</label>
-              <input type="password" className="form-control" id="Password" placeholder="Password" 
+              <input type="password" className="form-control" id="Password" placeholder="Password"
                 value={password} onChange={(e) => setPassword(e.target.value)} />
               <label className="label" htmlFor="ConfirmPassword">Confirm Password</label>
-              <input type="password" className="form-control" id="ConfirmPassword" placeholder="Confirm Password" 
+              <input type="password" className="form-control" id="ConfirmPassword" placeholder="Confirm Password"
                 value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </div> <br />
             <span>{message}</span>
