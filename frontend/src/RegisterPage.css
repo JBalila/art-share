@@ -1,0 +1,44 @@
+.leftpage-format {
+  background-color: white;
+  color: black;
+  font-size: 40px;
+  text-align: center;
+}
+
+.pink {
+  color: pink;
+}
+
+.input-color {
+  background-color: #D9D9D9;
+}
+
+.form-control {
+  background-color: #f8f9fa;
+  padding: 10px;
+  padding: 15px 5px;
+  margin-bottom: 1.3rem;
+}
+
+.form-control:focus {
+  color: #000000;
+  background-color: #ffffff;
+  border: 3px solid #da5767;
+  outline: 0;
+  box-shadow: none;
+}
+
+.bpink {
+  background-color: pink;
+  text-align: center;
+  flex: auto;
+}
+
+.parent {
+  text-align: center;
+}
+
+.button {
+  position: fixed;
+  bottom: 0;
+}
