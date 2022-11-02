@@ -39,7 +39,7 @@ function RegisterPage() {
       return;
     }
 
-    const hashedPassword = hash(password);
+    const hashedPassword = await hash(password);
 
     let obj = {
       firstName: 'Test',

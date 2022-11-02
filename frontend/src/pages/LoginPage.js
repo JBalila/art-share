@@ -30,7 +30,7 @@ function LoginPage() {
       return;
     }
 
-    const hashedPassword = hash(password);
+    const hashedPassword = await hash(password);
 
     let obj = {username: username, password: hashedPassword};
     let jsonPayload = JSON.stringify(obj);
