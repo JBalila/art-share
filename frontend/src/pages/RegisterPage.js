@@ -8,57 +8,43 @@ import background from "../background.jpg";
 
 function RegisterPage() {
   return(
-      <div className="background" style={{ backgroundImage: `url(${background})` }}>
-          <Page className="leftPage">
-          <div class="leftpage-format">
-              <p>
-              Welcome <br>
-              </br>
-              To <br>
-              </br>
-              <div class="pink">
-              Art Share
-              </div>
-
-              </p>
+    <div className="background" style={{ backgroundImage: `url(${background})` }}>
+        <Page className="leftPage">
+          <div class="page-format">
+            <div class="title">
+            Welcome <br/>
+            To <br/>
+            <div class="title-color"><b>Art Share</b></div>
             </div>
-          </Page>
-          <Page className="rightPage">
-            <div class="leftpage-format">
+          </div>
+        </Page>
+
+        <Page className="rightPage">
+          <div class="page-format">
+            <div class="title">Register</div>
+
+            <div class="input-format">
+              <label class="label" for="Email">Email</label>
+              <input type="text" class="form-control" id="Email" placeholder="Email"></input>
+              <label class="label" for="Username">Username</label>
+              <input type="text" class="form-control" id="Username" placeholder="Username"></input>
+              <label class="label" for="Password">Password</label>
+              <input type="text" class="form-control" id="Password" placeholder="Password"></input>
+              <label class="label"  for="ConfirmPassword">Confirm Password</label>
+              <input type="text" class="form-control" id="ConfirmPassword" placeholder="Confirm Password"></input>
+            </div>
+
+              <button class="register-button">
               Register
-            </div>
-            <div >
-                Email
-                <br></br>
-                <input type="text" class="form-control" id="Email" placeholder="Email"></input>
-            </div>
-            <div>
-            Username
-            <br></br>
-            <input type="text" class="form-control" id="UserName" placeholder="UserName"></input>
-          </div>
-          <div>
-            Password
-            <br></br>
-            <input type="text" class="form-control" id="Password" placeholder="Password"></input>
-          </div>
-          <div>
-            Confirm Password
-            <br></br>
-            <input type="text" class="form-control" id="ConfirmPassword" placeholder="Confirm Password"></input>
-          </div>
-          <div class="parent">
-          <button class="bpink parent">
-            Register
-          </button>
-          </div>
-          <div class="parent">
-          <a href='#'>Login Page</a>
-          </div>
+              </button>
 
-          </Page>
+            <div class="footer">
+              <Link to="/">Go to Log In</Link>
+            </div>
 
-      </div>
+          </div>
+        </Page>
+    </div>
   )
 }
 
