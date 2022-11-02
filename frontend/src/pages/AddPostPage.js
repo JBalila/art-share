@@ -12,6 +12,7 @@ function AddPostPage() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [isPublic, setIsPublic] = useState(true);
+    const [error, setError] = useState('');
 
     function convertFileToBase64(file) {
         let prom = new Promise((resolve, reject) => {
@@ -27,10 +28,17 @@ function AddPostPage() {
     }
 
     const post = async function() {
-        let base64File = '';
+        if (!file) {
+            setError('Please upload an image before posting');
+            return;
+        }
+        if (title.trim() === '') {
+            setError('Please add a title before posting');
+            return;
+        }
+        setError('');
         
-        if (file)
-            base64File = await convertFileToBase64(file);
+        let base64File = await convertFileToBase64(file);
 
         console.log('File: ' + base64File);
         console.log('Title: ' + title);
@@ -45,7 +53,7 @@ function AddPostPage() {
             </Page>
             <Page classname='rightpage'>
                 <ArtInfo setTitle={setTitle} setDescription={setDescription} 
-                    setIsPublic={setIsPublic} />
+                    setIsPublic={setIsPublic} error={error} />
                 
                 <button type='button' onClick={post}>Post</button>
             </Page>

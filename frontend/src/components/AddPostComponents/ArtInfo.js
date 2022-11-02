@@ -52,6 +52,9 @@ function ArtInfo(props) {
                 <span>Private</span>
                 <input type='checkbox' id='private' 
                     checked={isPrivate} onChange={handleVisibilityChange} />
+                
+                <br /> <br />
+                <span>{props.error}</span>
             </div>
         </div>
     );
