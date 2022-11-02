@@ -2,10 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+// Bootstrap import
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AddPostPage from './pages/AddPostPage';
 import ProfilePage from './pages/ProfilePage';
+<Route path='/' index element={<LoginPage />} />
 
 function App() {
   return(
