@@ -9,6 +9,8 @@ import FriendRequests from '../components/ProfileComponents/FriendRequests';
 
 import background from '../background.jpg';
 
+const bp = require('../components/Path');
+
 const ProfilePage = () => {
     const [cliqueIDs, setCliqueIDs] = useState([]);
     const [clique, setClique] = useState([]);
@@ -36,10 +38,11 @@ const ProfilePage = () => {
             let jsonPayload = JSON.stringify(obj);
 
             try {
-                let response = await fetch('http://localhost:5000/api/getUsername',
-                    {method:'POST', body:jsonPayload, headers:{
+                let response = await fetch(bp.buildPath('/api/getUsername'), {
+                    method:'POST', body:jsonPayload, headers:{
                         'Content-Type':'application/json'
-                    }});
+                    }
+                });
 
                 let text = await response.text();
                 if (text) {
@@ -75,7 +78,7 @@ const ProfilePage = () => {
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <Page classname='leftpage'>
-                <ProfileHeader name={'jbalila'} />
+                <ProfileHeader name={''} />
                 <ProfileSettings />
             </Page>
 

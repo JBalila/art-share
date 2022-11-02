@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
+const bp = require('../Path');
+
 function MyFriends(props) {
     let myUsername = '';
     let accessToken = '';
@@ -15,7 +17,7 @@ function MyFriends(props) {
         let jsonPayload = JSON.stringify(obj);
 
         try {
-            const response = await fetch('http://localhost:5000/api/sendFriendRequest', {
+            const response = await fetch(bp.buildPath('/api/sendFriendRequest'), {
                 method:'POST', body:jsonPayload, headers:{
                     'Content-Type':'application/json'
                 }
@@ -45,7 +47,7 @@ function MyFriends(props) {
         let jsonPayload = JSON.stringify(obj);
 
         try {
-            const response = await fetch('http://localhost:5000/api/removeFriend', {
+            const response = await fetch(bp.buildPath('/api/removeFriend'), {
                 method:'POST', body:jsonPayload, headers: {
                     'Content-Type':'application/json'
                 }
