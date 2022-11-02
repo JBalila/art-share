@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import Page from '../components/Page';
-import '../RegisterPage.css';
+import '../LoginRegisterPage.css';
 
 import background from "../background.jpg";
 
@@ -34,7 +34,7 @@ function RegisterPage() {
               <input type="text" class="form-control" id="ConfirmPassword" placeholder="Confirm Password"></input>
             </div>
 
-              <button class="register-button">
+              <button class="button">
               Register
               </button>
 
