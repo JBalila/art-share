@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bp = require('./frontend/src/components/Path');
 
 const nodemailer = require('nodemailer');
 const nodemailerSendGrid = require('nodemailer-sendgrid');
@@ -9,7 +10,7 @@ const transport = nodemailer.createTransport(
 exports.sendConfirmationEmail = async function (user) {
     let userID = {id: user._id.toString()};
     let emailToken = await jwt.sign(userID, process.env.ACCESS_TOKEN_SECRET);
-    let url = 'http://localhost:5000' + `/confirmation/${emailToken}`;
+    let url = bp.buildPath(`/confirmation/${emailToken}`);
 
     transport.sendMail({
         from: 'artsharegrp11@gmail.com',

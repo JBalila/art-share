@@ -85,8 +85,10 @@ exports.setUserEndpoints = function(app, client) {
             res.send(e);
         }
 
-        // TODO: Change to buildPath
-        res.redirect('http://localhost:3000');
+        if (process.env.NODE_ENV === 'production')
+            res.redirect('https://art-share-grp11.herokuapp.com');
+        else
+            res.redirect('http://localhost:3000'); 
     });
 
     app.post('/api/getUsername', async(req, res, next) => {
