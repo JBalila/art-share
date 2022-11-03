@@ -42,7 +42,7 @@
 }
 
 .button {
-  background-color: #FFA6A6;
+  background-color: #CC5871;
   font-size: 25px;
   width: 40%;
   border: none;
@@ -50,7 +50,7 @@
 }
 
 .button:hover {
-  background-color: #ff8888;
+  background-color: #aa344d;
 }
 
 .footer {
