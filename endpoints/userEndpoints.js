@@ -92,13 +92,13 @@ exports.setUserEndpoints = function(app, client) {
     });
 
     app.post('/api/sendResetPasswordEmail', async(req, res, next) => {
-        // Incoming: username, email
+        // Incoming: usernameOrEmail
         // Outgoing: error
 
         let ret;
-        const { username, email } = req.body;
+        const { usernameOrEmail } = req.body;
 
-        let user = await User.findOne().or([{Username: username}, {Email: email}]);
+        let user = await User.findOne().or([{Username: usernameOrEmail}, {Email: usernameOrEmail}]);
         if (!user) {
             ret = {error: 'A user with those credentials does not exist'};
 
