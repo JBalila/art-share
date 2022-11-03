@@ -3,8 +3,8 @@ import React from 'react';
 const bp = require('../Path');
 
 function FriendRequests(props) {
-    let myUsername = '';
-    let accessToken = '';
+    let myUsername = JSON.parse(localStorage.getItem('userData')).Username;
+    let accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
     const acceptFriendRequest = async function(pendingUsername) {
         let obj = {username: myUsername, friendUsername: pendingUsername, accessToken: accessToken};
@@ -23,11 +23,10 @@ function FriendRequests(props) {
                 return;
             }
 
-            // TODO: Store newly accepted friend into user's Clique in local-storage
-            // props.addToCliqueIDs(res.id);
-            // TODO: Remove pending-request from list
-            // props.removeFromPendingRequestIDs(res.id);
-            // TODO: Restore accessToken into token-storage
+            props.addToCliqueIDs(res.id);
+            props.removeFromPendingRequestIDs(res.id);
+
+            localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
         }
         catch(e) {
             console.error(e.message);
@@ -51,9 +50,9 @@ function FriendRequests(props) {
                 return;
             }
 
-            // TODO: Remove pending-request from list
-            // props.removeFromPendingRequestIDs(res.id);
-            // TODO: Restore accessToken into token-storage
+            props.removeFromPendingRequestIDs(res.id);
+
+            localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
         }
         catch(e) {
             console.error(e.message);
