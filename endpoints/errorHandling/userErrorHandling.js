@@ -21,7 +21,7 @@ function handleSendFriendRequest(user, friend) {
         throw {message: 'You cannot send a friend-request to yourself'};
     if (user.SentRequests.includes(friend._id))
         throw {message: `You have already sent a friend-request to ${friend.Username}`};
-    if (friend.PendingRequests.includes(user._id))
+    if (user.PendingRequests.includes(friend._id))
         throw {message: `${friend.Username} has already sent a friend-request to you`};
     if (user.Clique.includes(friend._id))
         throw {message: `${friend.Username} is already in your clique`};

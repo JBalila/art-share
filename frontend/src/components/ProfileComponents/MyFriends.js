@@ -24,11 +24,18 @@ function MyFriends(props) {
             });
 
             let res = JSON.parse(await response.text());
+
+            // JWT expired, return User to login page
+            if (res.jwtExpired) {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('accessToken');
+                window.location.href='/';
+            }
+
             if (res.error) {
                 setAddFriendMessage(res.error);
                 return;
             }
-
 
             setAddFriendUsername('');
             setAddFriendMessage('Friend-request sent!');
@@ -57,6 +64,14 @@ function MyFriends(props) {
             });
 
             let res = JSON.parse(await response.text());
+            
+            // JWT expired, return User to login page
+            if (res.jwtExpired) {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('accessToken');
+                window.location.href='/';
+            }
+
             if (res.error) {
                 console.error(res.error);
                 return;

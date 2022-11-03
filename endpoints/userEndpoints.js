@@ -117,7 +117,7 @@ exports.setUserEndpoints = function(app, client) {
         // Check if <accessToken> is expired
         try {
             if (jwt.isExpired(accessToken)) {
-                ret = {error: 'The JWT is no longer valid'};
+                ret = {jwtExpired: 'The JWT is no longer valid'};
                 res.status(200).json(ret);
                 return;
             }
@@ -170,7 +170,7 @@ exports.setUserEndpoints = function(app, client) {
         // Check if <accessToken> is expired
         try {
             if (jwt.isExpired(accessToken)) {
-                ret = {error: 'The JWT is no longer valid'};
+                ret = {jwtExpired: 'The JWT is no longer valid'};
                 res.status(200).json(ret);
                 return;
             }
@@ -236,7 +236,7 @@ exports.setUserEndpoints = function(app, client) {
         // Check if <accessToken> is expired
         try {
             if (jwt.isExpired(accessToken)) {
-                ret = {error: 'The JWT is no longer valid'};
+                ret = {jwtExpired: 'The JWT is no longer valid'};
                 res.status(200).json(ret);
                 return;
             }
@@ -300,7 +300,7 @@ exports.setUserEndpoints = function(app, client) {
         // Check if <accessToken> is expired
         try {
             if (jwt.isExpired(accessToken)) {
-                ret = {error: 'The JWT is no longer valid'};
+                ret = {jwtExpired: 'The JWT is no longer valid'};
                 res.status(200).json(ret);
                 return;
             }
@@ -348,10 +348,22 @@ exports.setUserEndpoints = function(app, client) {
     
     app.post('/api/editProfile', async(req, res, next) => {
         // Incoming: firstName, lastName, email, username, password
-        // Outgoing: error
+        // Outgoing: accessToken OR error
 
         let ret, userExists;
-        const { firstName, lastName, email, username, password } = req.body;
+        const { firstName, lastName, email, username, password, accessToken } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {jwtExpired: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         userExists = await User.findOne().or([{Username: username}, {Email: email}]);
         if (!userExists) {
@@ -371,6 +383,17 @@ exports.setUserEndpoints = function(app, client) {
         };
 
         await userExists.save();
+
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 }

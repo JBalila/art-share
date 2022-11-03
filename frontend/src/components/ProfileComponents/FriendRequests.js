@@ -18,6 +18,14 @@ function FriendRequests(props) {
             });
 
             let res = JSON.parse(await response.text());
+            
+            // JWT expired, return User to login page
+            if (res.jwtExpired) {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('accessToken');
+                window.location.href='/';
+            }
+
             if (res.error) {
                 console.error(res.error);
                 return;
@@ -45,6 +53,14 @@ function FriendRequests(props) {
             });
 
             let res = JSON.parse(await response.text());
+
+            // JWT expired, return User to login page
+            if (res.jwtExpired) {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('accessToken');
+                window.location.href='/';
+            }
+
             if (res.error) {
                 console.error(res.error);
                 return;
