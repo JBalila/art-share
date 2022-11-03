@@ -91,6 +91,49 @@ exports.setUserEndpoints = function(app, client) {
             res.redirect('http://localhost:3000'); 
     });
 
+    app.post('/api/sendResetPasswordEmail', async(req, res, next) => {
+        // Incoming: username, email
+        // Outgoing: error
+
+        let ret;
+        const { username, email } = req.body;
+
+        let user = await User.findOne().or([{Username: username}, {Email: email}]);
+        if (!user) {
+            ret = {error: 'A user with those credentials does not exist'};
+
+            res.status(200).json(ret);
+            return;
+        }
+
+        emailService.sendResetPasswordEmail(user);
+
+        ret = {error: ''};
+        res.status(200).json(ret);
+    });
+
+    app.post('/api/resetPassword', async(req, res, next) => {
+        // Incoming: userID, password
+        // Outgoing: error
+
+        let ret;
+        const { userID, password } = req.body;
+
+        let user = await User.findOne({_id: userID});
+        if (!user) {
+            ret = {error: 'That user does not exist'};
+
+            res.status(200).json(ret);
+            return;
+        }
+
+        user.Password = password;
+        await user.save();
+
+        ret = {error: ''};
+        res.status(200).json(ret);
+    });
+
     app.post('/api/getUsername', async(req, res, next) => {
         // Incoming: userID (_id of user to retrieve)
         // Outgoing: username (Username of userID) OR error
@@ -344,14 +387,13 @@ exports.setUserEndpoints = function(app, client) {
         ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
-
     
     app.post('/api/editProfile', async(req, res, next) => {
-        // Incoming: firstName, lastName, email, username, password
+        // Incoming: userID, username, accessToken
         // Outgoing: accessToken OR error
 
         let ret, userExists;
-        const { firstName, lastName, email, username, password, accessToken } = req.body;
+        const { userID, username, accessToken } = req.body;
 
         // Check if <accessToken> is expired
         try {
@@ -365,23 +407,17 @@ exports.setUserEndpoints = function(app, client) {
             console.log(e.message);
         }
 
-        userExists = await User.findOne().or([{Username: username}, {Email: email}]);
+        userExists = await User.findOne({_id: userID});
         if (!userExists) {
-            ret = {error: 'A user with that username does not exists'};
+            ret = {error: 'That user does not exist'};
            
             res.status(200).json(ret);
             return;
         }
 
         // if the user does exist update its fields with either same or old information
-        userExists = {
-            FirstName: firstName,
-            LastName: lastName,
-            Email: email,
-            Username: username,
-            Password: password
-        };
-
+        ret = {username: username};
+        userExists.Username = username;
         await userExists.save();
 
         // Send back newly refreshed <accessToken>

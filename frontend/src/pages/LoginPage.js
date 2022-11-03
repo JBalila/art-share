@@ -4,20 +4,10 @@ import { Link } from "react-router-dom";
 
 import Page from '../components/Page';
 import bp from '../components/Path';
+import functions from '../functions';
 import '../LoginRegisterPage.css';
 
 import background from "../background.jpg";
-
-function hash(string) {
-  const utf8 = new TextEncoder().encode(string);
-  return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) => {
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((bytes) => bytes.toString(16).padStart(2, '0'))
-      .join('');
-    return hashHex;
-  });
-}
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -30,7 +20,7 @@ function LoginPage() {
       return;
     }
 
-    const hashedPassword = await hash(password);
+    const hashedPassword = await functions.hash(password);
 
     let obj = {username: username, password: hashedPassword};
     let jsonPayload = JSON.stringify(obj);
