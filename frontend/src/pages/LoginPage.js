@@ -49,8 +49,9 @@ function LoginPage() {
       }
 
       setError('');
-      // TODO: Store user-data into local storage
-      // TODO: Store access-token into local storage
+
+      localStorage.setItem('userData', JSON.stringify(res.user));
+      localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
 
       window.location.href='/profile';
     }

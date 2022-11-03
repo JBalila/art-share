@@ -4,16 +4,16 @@ import { useState } from 'react';
 const bp = require('../Path');
 
 function MyFriends(props) {
-    let myUsername = '';
-    let accessToken = '';
-    let addFriendUsername;
+    let myUsername = JSON.parse(localStorage.getItem('userData')).Username;
+    let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+    const [addFriendUsername, setAddFriendUsername] = useState('');
 
-    const [addFriendError, setAddFriendError] = useState('');
+    const [addFriendError, setAddFriendMessage] = useState('');
 
     const addFriend = async event => {
         event.preventDefault();
 
-        let obj = {username: myUsername, friendUsername: addFriendUsername.value, accessToken: accessToken};
+        let obj = {username: myUsername, friendUsername: addFriendUsername, accessToken: accessToken};
         let jsonPayload = JSON.stringify(obj);
 
         try {
@@ -25,14 +25,17 @@ function MyFriends(props) {
 
             let res = JSON.parse(await response.text());
             if (res.error) {
-                setAddFriendError(res.error);
+                setAddFriendMessage(res.error);
                 return;
             }
 
-            setAddFriendError('');
-            // TODO: Store newly sent friend-request into local-storage
-            // props.addToSentRequestIDs(res.id);
-            // TODO: Restore accessToken into token-storage
+
+            setAddFriendUsername('');
+            setAddFriendMessage('Friend-request sent!');
+
+            props.addToSentRequestIDs(res.id);
+
+            localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
         }
         catch (e) {
             console.error(e.message);
@@ -59,9 +62,9 @@ function MyFriends(props) {
                 return;
             }
 
-            // TODO: Remove friend from local-storage
-            // props.removeFromCliqueIDs(res.id);
-            // TODO: Restore accessToken in localStorage
+            props.removeFromCliqueIDs(res.id);
+
+            localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
         }
         catch(e) {
             console.error(e.message);
@@ -83,7 +86,7 @@ function MyFriends(props) {
             <form onSubmit={ addFriend }>
                 <span>Add a Friend   </span>
                 <input type='text' id='addFriend' placeholder='Username of friend...' 
-                    ref={(c) => addFriendUsername = c} />
+                    value={addFriendUsername} onChange={(e) => setAddFriendUsername(e.target.value)} />
                 <input type='submit' onClick={ addFriend } />
             </form>
             <span>{addFriendError}</span> <br />

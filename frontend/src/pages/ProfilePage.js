@@ -12,19 +12,21 @@ import background from '../background.jpg';
 const bp = require('../components/Path');
 
 const ProfilePage = () => {
-    const [cliqueIDs, setCliqueIDs] = useState([]);
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const [cliqueIDs, setCliqueIDs] = useState(userData.Clique);
     const [clique, setClique] = useState([]);
     useEffect(() => {
         formatIDs(setClique, cliqueIDs);
     }, [JSON.stringify(cliqueIDs)]);
 
-    const [sentRequestIDs, setSentRequestIDs] = useState([]);
+    const [sentRequestIDs, setSentRequestIDs] = useState(userData.SentRequests);
     const [sentRequests, setSentRequests] = useState([]);
     useEffect(() => {
         formatIDs(setSentRequests, sentRequestIDs);
     }, [JSON.stringify(sentRequestIDs)]);
 
-    const [pendingRequestIDs, setPendingRequestIDs] = useState([]);
+    const [pendingRequestIDs, setPendingRequestIDs] = useState(userData.PendingRequests);
     const [pendingRequests, setPendingRequests] = useState([]);
     useEffect(() => {
         formatIDs(setPendingRequests, pendingRequestIDs);
@@ -54,31 +56,39 @@ const ProfilePage = () => {
                 console.error(e.message);
             }
         }
-
+        
         console.log(ret);
         setterFunction(ret);
     }
 
     const addToCliqueIDs = (newID) => {
-        setCliqueIDs((arr) => [...arr, newID]);
+        setCliqueIDs((cliqueIDs) => [...cliqueIDs, newID]);
+        userData.Clique.push(newID);
+        localStorage.setItem('userData', JSON.stringify(userData));
     }
 
     const removeFromCliqueIDs = (newID) => {
-        setCliqueIDs(cliqueIDs.splice(cliqueIDs.indexOf(newID), 1));
+        setCliqueIDs(cliqueIDs.filter(id => id !== newID));
+        userData.Clique.splice(userData.Clique.indexOf(newID), 1);
+        localStorage.setItem('userData', JSON.stringify(userData));
     };
 
     const addToSentRequestIDs = (newID) => {
-        setSentRequestIDs((arr) => [...arr, newID]);
+        setSentRequestIDs((sentRequestIDs) => [...sentRequestIDs, newID]);
+        userData.SentRequests.push(newID);
+        localStorage.setItem('userData', JSON.stringify(userData));
     };
 
     const removeFromPendingRequestIDs = (newID) => {
-        setPendingRequestIDs(sentRequestIDs.splice(sentRequestIDs.indexOf(newID), 1));
+        setPendingRequestIDs((pendingRequestIDs.filter(id => id !== newID)));
+        userData.PendingRequests.splice(userData.PendingRequests.indexOf(newID), 1);
+        localStorage.setItem('userData', JSON.stringify(userData));
     }
 
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <Page classname='leftpage'>
-                <ProfileHeader name={''} />
+                <ProfileHeader name={userData.Username} />
                 <ProfileSettings />
             </Page>
 
