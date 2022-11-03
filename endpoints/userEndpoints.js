@@ -344,4 +344,33 @@ exports.setUserEndpoints = function(app, client) {
         ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
+
+    
+    app.post('/api/editProfile', async(req, res, next) => {
+        // Incoming: firstName, lastName, email, username, password
+        // Outgoing: error
+
+        let ret, userExists;
+        const { firstName, lastName, email, username, password } = req.body;
+
+        userExists = await User.findOne().or([{Username: username}, {Email: email}]);
+        if (!userExists) {
+            ret = {error: 'A user with that username does not exists'};
+           
+            res.status(200).json(ret);
+            return;
+        }
+
+        // if the user does exist update its fields with either same or old information
+        userExists = {
+            FirstName: firstName,
+            LastName: lastName,
+            Email: email,
+            Username: username,
+            Password: password
+        };
+
+        await userExists.save();
+        res.status(200).json(ret);
+    });
 }
