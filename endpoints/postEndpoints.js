@@ -19,7 +19,19 @@ exports.setPostEndpoints = function(app, client) {
         // Outgoing: Error
 
         let ret;
-        const { image, authorID, title, description, ispublic } = req.body;
+        const { image, authorID, title, description, ispublic, accessToken } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {jwtExpired: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         let postExists = await Post.findOne({Title: title});
         if (postExists) {
@@ -39,7 +51,18 @@ exports.setPostEndpoints = function(app, client) {
 
         await newPost.save();
 
-        ret = {error: ''};
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = {};
+
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 
@@ -48,7 +71,19 @@ exports.setPostEndpoints = function(app, client) {
         // Outgoing: Error
 
         let ret;
-        const { postID, title, description, ispublic } = req.body;
+        const { postID, title, description, ispublic, accessToken } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {jwtExpired: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         let post = await Post.findOne({_id: postID});
         if (!post) {
@@ -63,7 +98,19 @@ exports.setPostEndpoints = function(app, client) {
         post.IsPublic = ispublic;
         await post.save();
 
-        ret = {error: ''};
+
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = {};
+
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 
@@ -72,7 +119,19 @@ exports.setPostEndpoints = function(app, client) {
         // Outgoing: Error
 
         let ret;
-        const { postID, userID } = req.body;
+        const { postID, userID, accessToken } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {jwtExpired: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         // Check if post exists
         let post = await Post.findOne({_id: postID});
@@ -95,7 +154,18 @@ exports.setPostEndpoints = function(app, client) {
         post.LikedBy.push(userID);
         await post.save();
 
-        ret = {error: ''};
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = {};
+
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 
@@ -104,7 +174,19 @@ exports.setPostEndpoints = function(app, client) {
         // Outgoing: Error 
 
         let ret;
-        const { postID, userID } = req.body;
+        const { postID, userID, accessToken } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {jwtExpired: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
 
         let post = await Post.findOne({_id: postID});
         if (!post) {
@@ -126,7 +208,19 @@ exports.setPostEndpoints = function(app, client) {
         post.LikedBy.splice(indexInLikedBy, 1);
         await post.save();
 
-        ret = {error: ''};
+
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = {};
+
+        ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
 }
