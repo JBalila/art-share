@@ -3,14 +3,6 @@ const Schema = mongoose.Schema;
 
 // Don't need to add _id field, MongoDB does that automatically
 const UserSchema = new Schema({
-    FirstName: {
-        type: String,
-        required: true
-    },
-    LastName: {
-        type: String,
-        required: true
-    },
     Email: {
         type: String,
         required: true,

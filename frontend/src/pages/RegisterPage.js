@@ -32,8 +32,6 @@ function RegisterPage() {
     const hashedPassword = await functions.hash(password);
 
     let obj = {
-      firstName: 'Test',
-      lastName: 'Test',
       email: email,
       username: username,
       password: hashedPassword

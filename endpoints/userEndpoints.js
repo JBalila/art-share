@@ -42,11 +42,11 @@ exports.setUserEndpoints = function(app, client) {
     });
 
     app.post('/api/register', async(req, res, next) => {
-        // Incoming: firstName, lastName, email, username, password
+        // Incoming: email, username, password
         // Outgoing: error
 
         let ret, userExists;
-        const { firstName, lastName, email, username, password } = req.body;
+        const { email, username, password } = req.body;
 
         userExists = await User.findOne().or([{Username: username}, {Email: email}]);
         if (userExists) {
@@ -60,8 +60,6 @@ exports.setUserEndpoints = function(app, client) {
         }
 
         let newUser = new User({
-            FirstName: firstName,
-            LastName: lastName,
             Email: email,
             Username: username,
             Password: password
