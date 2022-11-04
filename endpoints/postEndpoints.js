@@ -12,21 +12,18 @@ exports.setPostEndpoints = function(app, client) {
         let postArray = await Post.find().or([{isPublic: true}, {AuthorId: {$in: clique}}]);
         
         res.status(200).json(postArray);
-    })
+    });
 
     app.post('/api/addPost', async(req, res, next) => {
-        // Incoming: Title of post
+        // Incoming: Post information
         // Outgoing: Error
 
-        let ret, postExists;
+        let ret;
         const { image, authorID, title, description, ispublic } = req.body;
 
-        postExists = await Post.findOne({Title: title});
+        let postExists = await Post.findOne({Title: title});
         if (postExists) {
-            if (postExists.Image === image)
-                ret = {error: 'A post with that image already exists'};
-            else 
-                ret = {error: 'A post with that title already exists'}
+            ret = {error: 'A post with that title already exists'}
 
             res.status(200).json(ret);
             return;
@@ -41,8 +38,8 @@ exports.setPostEndpoints = function(app, client) {
         });
 
         await newPost.save();
+
         ret = {error: ''};
-        //ret = {Image: image, AuthorID: authorID, Title: title, Description: description, IsPublic: ispublic };
         res.status(200).json(ret);
     });
 
@@ -50,19 +47,23 @@ exports.setPostEndpoints = function(app, client) {
         // Incoming: _id of post to update
         // Outgoing: Error
 
-        let ret, post;
+        let ret;
         const { postID, title, description, ispublic } = req.body;
 
-        post = Post.findOne({_id: postID});
-        if (post) {
-            post.Title = title;
-            post.Description = description;
-            post.IsPublic = ispublic;
-            await post.save();
-        }
-        else {
+        let post = await Post.findOne({_id: postID});
+        if (!post) {
             ret = {error: 'Post not found'};
+
+            res.status(200).json(ret);
+            return;
         }
+
+        post.Title = title;
+        post.Description = description;
+        post.IsPublic = ispublic;
+        await post.save();
+
+        ret = {error: ''};
         res.status(200).json(ret);
     });
 
@@ -70,19 +71,31 @@ exports.setPostEndpoints = function(app, client) {
         // Incoming: postID to find post, name of person who liked post
         // Outgoing: Error
 
-        let ret, post;
-        const { postID, likedBy } = req.body;
+        let ret;
+        const { postID, userID } = req.body;
 
-        // If post is found update with one like.
-        post = Post.findOne({_id: postID});
-        if (post) {
-            post.Likes++; 
-            post.LikedBy.push(likedBy);
-            await post.save();
-        }
-        else {
+        // Check if post exists
+        let post = await Post.findOne({_id: postID});
+        if (!post) {
             ret = {error: 'Post not found'};
+
+            res.status(200).json(ret);
+            return;
         }
+
+        // Check if User has already liked the post
+        if (post.LikedBy.includes(userID)) {
+            ret = {error: 'You have already liked this post'};
+
+            res.status(200).json(ret);
+            return;
+        }
+
+        post.Likes++; 
+        post.LikedBy.push(userID);
+        await post.save();
+
+        ret = {error: ''};
         res.status(200).json(ret);
     });
 
@@ -90,20 +103,30 @@ exports.setPostEndpoints = function(app, client) {
         // Incoming: postID to find post, name of person who liked post
         // Outgoing: Error 
 
-        let ret, post;
-        const { postID, likedBy } = req.body;
+        let ret;
+        const { postID, userID } = req.body;
 
-        post = Post.findOne({_id: postID});
-        if (post) {
-            indexInLikedBy = post.LikedBy.indexOf(likedBy);
-            if (indexInLikedBy !== -1) 
-                post.LikedBy.splice(indexInLikedBy, 1);
-            post.Likes--;
-            await post.save();
-        }
-        else {
+        let post = await Post.findOne({_id: postID});
+        if (!post) {
             ret = {error: 'Post not found'};
+
+            res.status(200).json(ret);
+            return;
         }
+
+        let indexInLikedBy = post.LikedBy.indexOf(userID);
+        if (indexInLikedBy < 0) {
+            ret = {error: 'You have not liked this post'};
+
+            res.status(200).json(ret);
+            return;
+        }
+
+        post.Likes--;
+        post.LikedBy.splice(indexInLikedBy, 1);
+        await post.save();
+
+        ret = {error: ''};
         res.status(200).json(ret);
     });
 }
