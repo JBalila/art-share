@@ -14,6 +14,8 @@ const bp = require('../components/Path');
 const ProfilePage = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
 
+    const [username, setUsername] = useState(userData.Username);
+
     const [cliqueIDs, setCliqueIDs] = useState(userData.Clique);
     const [clique, setClique] = useState([]);
     useEffect(() => {
@@ -61,6 +63,12 @@ const ProfilePage = () => {
         setterFunction(ret);
     }
 
+    const changeUsername = (newUsername) => {
+        setUsername(newUsername);
+        userData.Username = newUsername;
+        localStorage.setItem('userData', JSON.stringify(userData));
+    }
+
     const addToCliqueIDs = (newID) => {
         setCliqueIDs((cliqueIDs) => [...cliqueIDs, newID]);
         userData.Clique.push(newID);
@@ -88,8 +96,8 @@ const ProfilePage = () => {
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <Page classname='leftpage'>
-                <ProfileHeader name={userData.Username} />
-                <ProfileSettings />
+                <ProfileHeader name={username} />
+                <ProfileSettings id={userData._id} changeUsername={changeUsername} />
             </Page>
 
             <Page classname='rightpage'>

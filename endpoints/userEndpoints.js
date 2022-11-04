@@ -388,12 +388,12 @@ exports.setUserEndpoints = function(app, client) {
         res.status(200).json(ret);
     });
     
-    app.post('/api/editProfile', async(req, res, next) => {
-        // Incoming: userID, username, accessToken
+    app.post('/api/changeUsername', async(req, res, next) => {
+        // Incoming: userID, newUsername, accessToken
         // Outgoing: accessToken OR error
 
-        let ret, userExists;
-        const { userID, username, accessToken } = req.body;
+        let ret;
+        const { userID, newUsername, accessToken } = req.body;
 
         // Check if <accessToken> is expired
         try {
@@ -407,18 +407,20 @@ exports.setUserEndpoints = function(app, client) {
             console.log(e.message);
         }
 
-        userExists = await User.findOne({_id: userID});
-        if (!userExists) {
-            ret = {error: 'That user does not exist'};
+        // Don't allow multiple users to have the same username
+        let userExists = await User.findOne({Username: newUsername});
+        if (userExists) {
+            ret = {error: 'That username is already taken'};
            
             res.status(200).json(ret);
             return;
         }
 
-        // if the user does exist update its fields with either same or old information
-        ret = {username: username};
-        userExists.Username = username;
-        await userExists.save();
+        // Change <user>'s Username to <newUsername>
+        let user = await User.findOne({_id: userID});
+        ret = {username: newUsername};
+        user.Username = newUsername;
+        await user.save();
 
         // Send back newly refreshed <accessToken>
         let refreshedToken;
