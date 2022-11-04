@@ -3,6 +3,7 @@ require('mongodb')
 
 const jwt = require('../createJWT');
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 exports.setPostEndpoints = function(app, client) {
     app.post('/api/feed', async(req, res, next) => {
@@ -65,6 +66,58 @@ exports.setPostEndpoints = function(app, client) {
         ret = Object.assign(ret, refreshedToken);
         res.status(200).json(ret);
     });
+
+    app.delete('/api/deletePost', async(req, res, next) => {
+        // Incoming: postID, accessToken
+        // Outgoing: error
+
+        let ret;
+        const { postID, accessToken } = req.body;
+
+        // Check if <accessToken> is expired
+        try {
+            if (jwt.isExpired(accessToken)) {
+                ret = {jwtExpired: 'The JWT is no longer valid'};
+                res.status(200).json(ret);
+                return;
+            }
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        let post = await Post.findOne({_id: postID});
+        if (!post) {
+            ret = {error: 'Post not found'};
+
+            res.status(200).json(ret);
+            return;
+        }
+
+        let attachedComments = await Comment.find({PostID: postID});
+
+        // Delete all comments attached to that Post (prevent database cluttering)
+        for (const comment of attachedComments) {
+            await Comment.deleteOne({_id: comment._id});
+        }
+
+        // Finally, delete Post itself
+        await Post.deleteOne({_id: postID});
+
+        // Send back newly refreshed <accessToken>
+        let refreshedToken;
+        try {
+            refreshedToken = jwt.refresh(accessToken);
+        }
+        catch(e) {
+            console.log(e.message);
+        }
+
+        ret = {};
+
+        ret = Object.assign(ret, refreshedToken);
+        res.status(200).json(ret);
+    }); 
 
     app.post('/api/editPost', async(req, res, next) => {
         // Incoming: _id of post to update
