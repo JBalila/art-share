@@ -46,7 +46,7 @@ exports.setCommentEndpoints = function(app, client) {
       res.status(200).json(ret);
     });
 
-    app.post('/api/likeComment', async(req, res, next) => {
+    app.patch('/api/likeComment', async(req, res, next) => {
 
       let ret, comment;
       const {commentID, likedBy, accessToken} = req.body;
@@ -87,10 +87,10 @@ exports.setCommentEndpoints = function(app, client) {
       res.status(200).json(ret);
     });
 
-    app.post('/api/unlikeComment', async(req, res, next) => {
+    app.patch('/api/unlikeComment', async(req, res, next) => {
 
       let ret, comment;
-      const {commentID, likedBy} = req.body;
+      const {commentID, likedBy, accessToken} = req.body;
 
       // Check if <accessToken> is expired
       try {

@@ -119,7 +119,7 @@ exports.setPostEndpoints = function(app, client) {
         res.status(200).json(ret);
     }); 
 
-    app.post('/api/editPost', async(req, res, next) => {
+    app.patch('/api/editPost', async(req, res, next) => {
         // Incoming: _id of post to update
         // Outgoing: Error
 
@@ -167,7 +167,7 @@ exports.setPostEndpoints = function(app, client) {
         res.status(200).json(ret);
     });
 
-    app.post('/api/likePost', async(req, res, next) => {
+    app.patch('/api/likePost', async(req, res, next) => {
         // Incoming: postID to find post, name of person who liked post
         // Outgoing: Error
 
@@ -222,7 +222,7 @@ exports.setPostEndpoints = function(app, client) {
         res.status(200).json(ret);
     });
 
-    app.post('/api/unlikePost', async(req, res, next) => {
+    app.patch('/api/unlikePost', async(req, res, next) => {
         // Incoming: postID to find post, name of person who liked post
         // Outgoing: Error 
 

@@ -110,7 +110,7 @@ exports.setUserEndpoints = function(app, client) {
         res.status(200).json(ret);
     });
 
-    app.post('/api/resetPassword', async(req, res, next) => {
+    app.patch('/api/resetPassword', async(req, res, next) => {
         // Incoming: userID, password
         // Outgoing: error
 
@@ -386,7 +386,7 @@ exports.setUserEndpoints = function(app, client) {
         res.status(200).json(ret);
     });
     
-    app.post('/api/changeUsername', async(req, res, next) => {
+    app.patch('/api/changeUsername', async(req, res, next) => {
         // Incoming: userID, newUsername, accessToken
         // Outgoing: accessToken OR error
 

@@ -31,7 +31,7 @@ function ResetPasswordPage() {
 
         try {
             const response = await fetch(bp.buildPath('/api/resetPassword'), {
-                method:'POST', body:jsonPayload, headers: {
+                method:'PATCH', body:jsonPayload, headers: {
                     'Content-Type':'application/json'
                 }
             });

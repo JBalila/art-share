@@ -26,7 +26,7 @@ function ProfileSettings(props) {
 
         try {
             const response = await fetch(bp.buildPath('/api/changeUsername'), {
-                method:'POST', body:jsonPayload, headers: {
+                method:'PATCH', body:jsonPayload, headers: {
                     'Content-Type':'application/json'
                 }
             });
@@ -46,6 +46,7 @@ function ProfileSettings(props) {
             }
 
             setUsernameMessage('Username successfully changed!');
+            setUsername('');
             props.changeUsername(username);
             localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
         }
@@ -82,7 +83,7 @@ function ProfileSettings(props) {
 
         try {
             const response = await fetch(bp.buildPath('/api/resetPassword'), {
-                method:'POST', body:jsonPayload, headers: {
+                method:'PATCH', body:jsonPayload, headers: {
                     'Content-Type':'application/json'
                 }
             });
@@ -94,6 +95,8 @@ function ProfileSettings(props) {
             }
 
             setPasswordMessage('Password successfully changed');
+            setPassword('');
+            setConfirmPassword('');
         }
         catch(e) {
             console.error(e);
