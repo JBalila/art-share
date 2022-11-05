@@ -52,27 +52,34 @@ function ResetPasswordPage() {
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <Page className='leftPage'>
-                <div>
-                    <label htmlFor='password'>Password</label>
-                    <input type='password' id='password' placeholder='Password'
-                        value={password} onChange={(e) => setPassword(e.target.value)} />
-                    <br />
-                </div>
+                <div className='page-format'>
+                    <div className='title'>
+                        Reset Password
+                    </div>
 
-                <div>
-                    <label htmlFor='confirmPassword'>Confirm Password</label>
-                    <input type='password' id='confirmPassword' placeholder='Confirm Password' 
-                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                    <br />
+                    <div className='input-format'>
+                        <label className='label' htmlFor='password'>Password</label>
+                        <input type='password' className='form-control' id='password' placeholder='Password'
+                            value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <label className='label' htmlFor='confirmPassword'>Confirm Password</label>
+                        <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password' 
+                            value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <br />
+                    </div>
                     <span>{message}</span>
-                    <br /> <br />
-                </div>
 
-                <button type='button' onClick={resetPassword}>Reset Password</button>
+                    <button type='button' className='button' style={{width:'200px'}} onClick={resetPassword}>
+                        Reset Password
+                    </button>
+                </div>
             </Page>
 
             <Page className='rightPage'>
-
+                <div className="page-format">
+                    <div className="title">
+                        <div className="title-color"><b>Art Share</b></div>
+                    </div>
+                </div>
             </Page>
         </div>
     );
