@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Page from '../components/Page';
 import bp from '../components/Path';
 import functions from '../functions';
-import '../LoginRegisterPage.css';
+import '../PageStyles.css';
 
 import background from "../background.jpg";
 
@@ -95,7 +95,7 @@ function RegisterPage() {
               </button>
 
             <div className="footer">
-              <Link to="/">Go to Log In</Link>
+              <Link to="/" className="link">Go to Log In</Link>
             </div>
 
           </div>

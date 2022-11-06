@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Page from '../components/Page';
 import bp from '../components/Path';
 import functions from '../functions';
-import '../LoginRegisterPage.css';
+import '../PageStyles.css';
 
 import background from "../background.jpg";
 
@@ -81,9 +81,9 @@ function LoginPage() {
               </button>
 
             <div className="footer">
-              <Link to="/register">Register Account</Link>
+              <Link to="/register" className="link">Register Account</Link>
               <br/>
-              <Link to="/">Forgot Password</Link>
+              <Link to="/" className="link">Forgot Password</Link>
             </div>
 
           </div>

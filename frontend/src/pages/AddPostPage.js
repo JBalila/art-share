@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Page from '../components/Page';
 import ArtUpload from '../components/AddPostComponents/ArtUpload';
 import ArtInfo from '../components/AddPostComponents/ArtInfo';
+import '../PageStyles.css';
 
 import background from "../background.jpg";
 
@@ -52,10 +53,14 @@ function AddPostPage() {
                 <ArtUpload setFile={setFile} />
             </Page>
             <Page classname='rightpage'>
-                <ArtInfo setTitle={setTitle} setDescription={setDescription} 
-                    setIsPublic={setIsPublic} error={error} />
-                
-                <button type='button' onClick={post}>Post</button>
+                <div className="input-format">
+                    <ArtInfo setTitle={setTitle} setDescription={setDescription} 
+                        setIsPublic={setIsPublic} error={error} />
+                    
+                    <button type='button' onClick={post}>
+                    Post
+                    </button>
+                </div>
             </Page>
         </div>
     )
