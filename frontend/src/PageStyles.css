@@ -56,3 +56,11 @@
 .footer {
   font-size: 17px;
 }
+
+.link {
+  color: #aa344d;
+}
+
+.link:hover {
+  color: #dd8c9e;
+}
