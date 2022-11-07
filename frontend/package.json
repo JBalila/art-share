@@ -9,6 +9,7 @@
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
     "jsonwebtoken": "^8.5.1",
+    "rc-tabs": "^12.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
