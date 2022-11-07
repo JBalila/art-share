@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 import Page from '../components/Page';
+import MenuTabs from '../components/MenuTabs';
 import bp from '../components/Path';
 import functions from '../functions';
 import '../PageStyles.css';
@@ -52,6 +53,7 @@ function LoginPage() {
 
   return(
     <div className="background" style={{ backgroundImage: `url(${background})` }}>
+      <MenuTabs />
         <Page className="leftPage">
           <div className="page-format">
             <div className="title">

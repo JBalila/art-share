@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import HomePage from './pages/HomePage';
 import AddPostPage from './pages/AddPostPage';
 import ProfilePage from './pages/ProfilePage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' index element={<LoginPage />} />
         <Route path='/register' index element={<RegisterPage />} />
+        <Route path='/home' index element={<HomePage />} />
         <Route path='/addpost' index element={<AddPostPage />} />
         <Route path='/profile' index element={<ProfilePage />} />
         <Route path='/resetpassword' index element={<ResetPasswordPage />} />
