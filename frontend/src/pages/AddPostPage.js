@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import Page from '../components/Page';
+import MenuTabs from '../components/MenuTabs';
 import ArtUpload from '../components/AddPostComponents/ArtUpload';
 import ArtInfo from '../components/AddPostComponents/ArtInfo';
 import '../PageStyles.css';
@@ -38,7 +39,7 @@ function AddPostPage() {
             return;
         }
         setError('');
-        
+
         let base64File = await convertFileToBase64(file);
 
         console.log('File: ' + base64File);
@@ -49,14 +50,15 @@ function AddPostPage() {
 
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
+          <MenuTabs />
             <Page classname='leftpage'>
                 <ArtUpload setFile={setFile} />
             </Page>
             <Page classname='rightpage'>
                 <div className="input-format">
-                    <ArtInfo setTitle={setTitle} setDescription={setDescription} 
+                    <ArtInfo setTitle={setTitle} setDescription={setDescription}
                         setIsPublic={setIsPublic} error={error} />
-                    
+
                     <button type='button' onClick={post}>
                     Post
                     </button>

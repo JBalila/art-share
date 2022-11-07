@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 import Page from '../components/Page';
+import MenuTabs from '../components/MenuTabs';
 import ProfileHeader from '../components/ProfileComponents/ProfileHeader';
 import ProfileSettings from '../components/ProfileComponents/ProfileSettings';
 import MyFriends from '../components/ProfileComponents/MyFriends';
@@ -58,7 +59,7 @@ const ProfilePage = () => {
                 console.error(e.message);
             }
         }
-        
+
         console.log(ret);
         setterFunction(ret);
     }
@@ -95,6 +96,7 @@ const ProfilePage = () => {
 
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
+          <MenuTabs />
             <Page classname='leftpage'>
                 <ProfileHeader name={username} />
                 <ProfileSettings id={userData._id} changeUsername={changeUsername} />
