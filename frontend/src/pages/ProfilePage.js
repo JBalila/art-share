@@ -5,6 +5,7 @@ import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
 import ProfileHeader from '../components/ProfileComponents/ProfileHeader';
 import ProfileSettings from '../components/ProfileComponents/ProfileSettings';
+import LogoutButton from '../components/ProfileComponents/LogoutButton';
 import MyFriends from '../components/ProfileComponents/MyFriends';
 import FriendRequests from '../components/ProfileComponents/FriendRequests';
 
@@ -100,6 +101,7 @@ const ProfilePage = () => {
             <Page classname='leftpage'>
                 <ProfileHeader name={username} />
                 <ProfileSettings id={userData._id} changeUsername={changeUsername} />
+                <LogoutButton />
             </Page>
 
             <Page classname='rightpage'>
