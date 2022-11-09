@@ -77,21 +77,21 @@ function FriendRequests(props) {
 
     return(
         <div>
-            <h2>Sent Friend-Requests</h2>
-            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
-                    {props.sentRequests.map((friend) => <li key={friend.id}>{friend.content}</li>)}
-                </ul>
-            </div>
-
-            <h2>Pending Friend-Requests</h2>
-            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
+            <h2 className='title'>Pending Requests</h2>
+            <div style={{height:'100px', overflowY:'auto', scrollBehavior: 'smooth'}}>
                 <ul style={{paddingLeft:'10px', paddingRight:'10px', listStyle:'none'}}>
                     {props.pendingRequests.map((friend) => 
                         <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
                         <button style={{float:'right'}} onClick={() => declineFriendReqeust(friend.content)}>Decline</button>
                         <button style={{float:'right'}} onClick={() => acceptFriendRequest(friend.content)}>Accept</button> 
                         </li>)}
+                </ul>
+            </div>
+
+            <h2 className='title'>Sent Requests</h2>
+            <div style={{height:'100px', overflowY:'auto', scrollBehavior: 'smooth'}}>
+                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
+                    {props.sentRequests.map((friend) => <li key={friend.id}>{friend.content}</li>)}
                 </ul>
             </div>
         </div>

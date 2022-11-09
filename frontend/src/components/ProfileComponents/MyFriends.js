@@ -88,7 +88,7 @@ function MyFriends(props) {
 
     return(
         <div>
-            <h2>Friends</h2>
+            <h2 className='title'>My Clique</h2>
             <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
                 <ul style={{paddingLeft:'10px', paddingRight:'10px', listStyle:'none'}}>
                     {props.clique.map((friend) => 

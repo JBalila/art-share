@@ -99,7 +99,7 @@ const ProfilePage = () => {
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
           <MenuTabs />
             <Page classname='leftpage'>
-                <ProfileHeader name={username} />
+                <ProfileHeader />
                 <ProfileSettings id={userData._id} changeUsername={changeUsername} />
                 <LogoutButton />
             </Page>

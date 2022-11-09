@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ProfileHeader(props) {
+function ProfileHeader() {
     return(
         <div className='title' style={{paddingBottom:'20px'}}>
-            <b>{props.name}'s Profile</b>
+            <h1>My Profile</h1>
         </div>
     );
 }
