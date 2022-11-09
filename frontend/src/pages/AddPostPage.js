@@ -107,12 +107,12 @@ function AddPostPage() {
             </Page>
             <Page classname='rightpage'>
                 <div className='add-post-page'>
-                <ArtInfo setTitle={setTitle} setDescription={setDescription}
-                    setIsPublic={setIsPublic} error={error} />
+                    <ArtInfo setTitle={setTitle} setDescription={setDescription}
+                        setIsPublic={setIsPublic} error={error} />
 
-                <button type='button' className='button' style={{alignSelf:'center'}} onClick={post}>
-                        Post
-                </button>
+                    <button type='button' className='button' id='addPost' onClick={post}>
+                            Post
+                    </button>
                 </div>
             </Page>
         </div>

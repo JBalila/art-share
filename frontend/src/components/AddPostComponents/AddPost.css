@@ -79,3 +79,8 @@
     display: inline-block;
     font-size: 20px;
 }
+
+#addPost {
+    align-self: center;
+    margin-left: -30px;
+}
