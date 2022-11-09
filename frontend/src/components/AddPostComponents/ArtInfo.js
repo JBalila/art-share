@@ -32,30 +32,34 @@ function ArtInfo(props) {
 
     return(
         <div>
-            <div>
-                <span>Title</span> <br />
-                <input type='text' placeholder='Title' 
+            <div className='add-post-form'>
+                <span className='add-post-title'>Title</span> <br />
+                <input type='text' className='add-post-input' placeholder='Title' 
                     value={title} onChange={handleTitleChange} />
             </div>
 
-            <div>
-                <span>Description</span> <br />
-                <textarea placeholder='Description' 
+            <div className='add-post-form'>
+                <span className='add-post-title'>Description</span> <br />
+                <textarea placeholder='Description' className='add-post-textarea'
                     value={description} onChange={handleDescriptionChange} />
             </div>
 
-            <div>
-                <span>Public</span>
-                <input type='checkbox' id='public' 
-                    checked={isPublic} onChange={handleVisibilityChange} />
+            <div className='add-post-visibility'>
+                <div>
+                    <span>Public</span>
+                    <input type='checkbox' id='public' className='add-post-checkbox'
+                        checked={isPublic} onChange={handleVisibilityChange} />
+                </div>
 
-                <span>Private</span>
-                <input type='checkbox' id='private' 
-                    checked={isPrivate} onChange={handleVisibilityChange} />
-                
-                <br /> <br />
-                <span>{props.error}</span>
+                <div>
+                    <span>Private</span>
+                    <input type='checkbox' id='private' className='add-post-checkbox'
+                        checked={isPrivate} onChange={handleVisibilityChange} />
+                </div>
             </div>
+
+            <br />
+            <span className='add-post-message'>{props.error}</span>
         </div>
     );
 }

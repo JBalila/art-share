@@ -6,11 +6,13 @@ import MenuTabs from '../components/MenuTabs';
 import ArtUpload from '../components/AddPostComponents/ArtUpload';
 import ArtInfo from '../components/AddPostComponents/ArtInfo';
 import '../PageStyles.css';
+import '../components/AddPostComponents/AddPost.css';
 
 import background from "../background.jpg";
 import bp from '../components/Path';
 
-const MAX_FILE_SIZE = 10000000;
+const MAX_CHARS_IN_DESC = 500;
+const MAX_FILE_SIZE = 2000000;
 
 function AddPostPage() {
     const user = JSON.parse(localStorage.getItem('userData'));
@@ -40,12 +42,16 @@ function AddPostPage() {
             setError('Please add a title before posting');
             return;
         }
+        if (description.length > MAX_CHARS_IN_DESC) {
+            setError('Please limit your description to 500 characters');
+            return;
+        }
         if (!file) {
             setError('Please upload an image before posting');
             return;
         }
         if (file.size > MAX_FILE_SIZE) {
-            setError('Sorry! The uploaded file is too large');
+            setError('The uploaded file is too large (2MB max)');
             return;
         }
         setError('');
@@ -95,16 +101,18 @@ function AddPostPage() {
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
           <MenuTabs />
             <Page classname='leftpage'>
-                <ArtUpload setFile={setFile} />
+                <div className='add-post-page'>
+                    <ArtUpload setFile={setFile} />
+                </div>
             </Page>
             <Page classname='rightpage'>
-                <div className="input-format">
-                    <ArtInfo setTitle={setTitle} setDescription={setDescription}
-                        setIsPublic={setIsPublic} error={error} />
+                <div className='add-post-page'>
+                <ArtInfo setTitle={setTitle} setDescription={setDescription}
+                    setIsPublic={setIsPublic} error={error} />
 
-                    <button type='button' onClick={post}>
-                    Post
-                    </button>
+                <button type='button' className='button' style={{alignSelf:'center'}} onClick={post}>
+                        Post
+                </button>
                 </div>
             </Page>
         </div>

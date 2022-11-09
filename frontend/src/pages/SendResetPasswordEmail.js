@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import Page from '../components/Page';
 import bp from '../components/Path';
-import functions from '../functions';
 
 import background from '../background.jpg'
 
