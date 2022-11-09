@@ -83,7 +83,7 @@ function LoginPage() {
             <div className="footer">
               <Link to="/register" className="link">Register Account</Link>
               <br/>
-              <Link to="/" className="link">Forgot Password</Link>
+              <Link to="/sendresetemail" className="link">Forgot Password</Link>
             </div>
 
           </div>

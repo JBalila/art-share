@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import AddPostPage from './pages/AddPostPage';
 import ProfilePage from './pages/ProfilePage';
+import SendResetPasswordEmail from './pages/SendResetPasswordEmail';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 <Route path='/' index element={<LoginPage />} />
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/home' index element={<HomePage />} />
         <Route path='/addpost' index element={<AddPostPage />} />
         <Route path='/profile' index element={<ProfilePage />} />
+        <Route path='/sendresetemail' index element={<SendResetPasswordEmail />} />
         <Route path='/resetpassword' index element={<ResetPasswordPage />} />
       </Routes>
     </BrowserRouter>

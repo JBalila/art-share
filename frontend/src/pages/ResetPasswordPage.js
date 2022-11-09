@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Page from '../components/Page';
 import bp from '../components/Path';
@@ -46,6 +47,8 @@ function ResetPasswordPage() {
             console.error(e);
         }
 
+        setPassword('');
+        setConfirmPassword('');
         setMessage('Successfully reset your password');
     }
 
@@ -71,6 +74,10 @@ function ResetPasswordPage() {
                     <button type='button' className='button' style={{width:'200px'}} onClick={resetPassword}>
                         Reset Password
                     </button>
+
+                    <div className="footer">
+                        <Link to="/" className="link">Go to Log In</Link>
+                    </div>
                 </div>
             </Page>
 

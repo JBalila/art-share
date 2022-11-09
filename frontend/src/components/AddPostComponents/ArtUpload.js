@@ -14,11 +14,16 @@ function ArtUpload(props) {
     }
 
     return(
-        <div>
+        <div className='add-post-file-upload'>
             <label htmlFor='fileUpload'>
-                <img style={{width:'375px', height:'390px', cursor:'pointer'}} src={UploadImg} />
+                <img src={UploadImg} />
             </label>
-            <input style={{display:'none'}} type='file' accept='.jpg,.png' id='fileUpload' onChange={ handleChange } />
+            <form>
+                <input type='file' accept='.jpg,.png' id='fileUpload' onChange={ handleChange } />
+                <div className='add-post-upload-button'>
+                    <p>Selected file: {isUploaded ? file.name : 'No file selected'}</p>
+                </div>
+            </form>
         </div>
     );
 }
