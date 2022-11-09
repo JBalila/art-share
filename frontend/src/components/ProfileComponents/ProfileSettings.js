@@ -9,8 +9,7 @@ function ProfileSettings(props) {
 
     const [username, setUsername] = useState('');
     const [usernameMessage, setUsernameMessage] = useState('');
-    const [toggle, setToggle] = useState('none');
-    const [buttonName, setButtonName] = useState('Change Password');
+
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMessage, setPasswordMessage] = useState('');
@@ -53,18 +52,6 @@ function ProfileSettings(props) {
         catch(e) {
             console.error(e);
         }
-    }
-
-    const handleToggle = function() {
-        if (toggle === 'none') {
-            setToggle('');
-            setButtonName('Close');
-        }
-        else {
-            setToggle('none');
-            setButtonName('Change Password');
-        }
-        setPasswordMessage('');
     }
 
     const handleChangePassword = async function() {
@@ -115,8 +102,7 @@ function ProfileSettings(props) {
                 </button> <br />
                 <span>{usernameMessage}</span>
             </div>
-            <button type='button' onClick={handleToggle}>{buttonName}</button>
-            <div className='input-format' style={{display:toggle}}>
+            <div className='input-format'>
                 <label htmlFor='changePassword' className='label'>New Password</label>
                 <input type='password' className='form-control' id='changePassword' placeholder='Password'
                     value={password} onChange={(e) => setPassword(e.target.value)} />
