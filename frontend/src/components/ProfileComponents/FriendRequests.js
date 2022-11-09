@@ -24,6 +24,7 @@ function FriendRequests(props) {
                 localStorage.removeItem('userData');
                 localStorage.removeItem('accessToken');
                 window.location.href='/';
+                return;
             }
 
             if (res.error) {
