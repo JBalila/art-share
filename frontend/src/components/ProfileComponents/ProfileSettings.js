@@ -104,7 +104,7 @@ function ProfileSettings(props) {
     }
 
     return(
-        <div style={{display:'flex', flexDirection:'column'}}>
+        <div>
             <div className='input-format'>
                 <label htmlFor='changeUsername' className='label'>Change Username</label>
                 <input type='text' className='form-control' id='changeUsername' placeholder='New Username'

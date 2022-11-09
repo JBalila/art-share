@@ -6,6 +6,7 @@ div#outer-rectangle {
 }
 
 div#inner-rectangle {
+  position: relative;
   background-color: white;
   width: 400px;
   height: 550px;
