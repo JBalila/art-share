@@ -51,10 +51,10 @@ function AddPostPage() {
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
           <MenuTabs />
-            <Page classname='leftpage'>
+            <Page className='leftpage'>
                 <ArtUpload setFile={setFile} />
             </Page>
-            <Page classname='rightpage'>
+            <Page className='rightpage'>
                 <div className="input-format">
                     <ArtInfo setTitle={setTitle} setDescription={setDescription}
                         setIsPublic={setIsPublic} error={error} />

@@ -105,27 +105,27 @@ function ProfileSettings(props) {
     }
 
     return(
-        <div style={{display:'flex', flexDirection:'column'}}>
+        <div>
             <div className='input-format'>
-                <label htmlFor='changeUsername' className='label' style={{paddingLeft:'10px'}}>Change Username</label>
+                <label htmlFor='changeUsername' className='label'>Change Username</label>
                 <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
                     value={username} onChange={(e) => setUsername(e.target.value)} />
-                <button type='button' className='button' style={{width:'100px', marginTop:'0px'}} onClick={handleChangeUsername}>
+                <button type='button' className='submit-button' onClick={handleChangeUsername}>
                     Submit
                 </button> <br />
                 <span>{usernameMessage}</span>
             </div>
             <button type='button' onClick={handleToggle}>{buttonName}</button>
             <div className='input-format' style={{display:toggle}}>
-                <label htmlFor='changePassword' className='label' style={{paddingLeft:'10px'}}>New Password</label>
+                <label htmlFor='changePassword' className='label'>New Password</label>
                 <input type='password' className='form-control' id='changePassword' placeholder='Password'
                     value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                <label htmlFor='confirmPassword' className='label' style={{paddingLeft:'10px'}}>Confirm Password</label>
+                <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
                 <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
                     value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
-                <button type='button' className='button' onClick={handleChangePassword}>Submit</button> <br />
+                <button type='button' className='submit-button' onClick={handleChangePassword}>Submit</button> <br />
                 <span>{passwordMessage}</span>
             </div>
         </div>

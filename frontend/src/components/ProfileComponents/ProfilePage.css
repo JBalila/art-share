@@ -1,0 +1,75 @@
+.profile-header {
+  font-family: "Georgia", serif;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-content {
+  font-family: "Georgia", serif;
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-footer {
+  font-family: "Georgia", serif;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-button {
+  background-color: #CC5871;
+  font-size: 25px;
+  width: 50%;
+  border: none;
+}
+
+.submit-button:hover {
+  background-color: #aa344d;
+}
+
+.scroll-box {
+  height: 100px;
+  overflow-y: auto;
+  scrollBehavior: smooth;
+}
+
+.friend-list {
+  padding-left: 10px;
+  padding-right: 10px;
+  list-style: none;
+}
+
+.pending-list {
+  padding-left: 10px;
+  padding-right: 10px;
+  list-style: none;
+}
+
+.sent-list {
+  padding-left: 10px;
+  list-style: none;
+}
+
+.remove-friend-button {
+  float: right;
+}
+
+.decline-button {
+  float: right;
+}
+
+.accept-button {
+  float: right;
+}

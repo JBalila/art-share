@@ -1,4 +1,7 @@
 import React from 'react';
+import './ProfilePage.css';
+
+import { AiOutlineStop, AiOutlineCheck } from "react-icons/ai";
 
 const bp = require('../Path');
 
@@ -18,7 +21,7 @@ function FriendRequests(props) {
             });
 
             let res = JSON.parse(await response.text());
-            
+
             // JWT expired, return User to login page
             if (res.jwtExpired) {
                 localStorage.removeItem('userData');
@@ -78,19 +81,19 @@ function FriendRequests(props) {
     return(
         <div>
             <h2 className='title'>Pending Requests</h2>
-            <div style={{height:'100px', overflowY:'auto', scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', paddingRight:'10px', listStyle:'none'}}>
-                    {props.pendingRequests.map((friend) => 
+            <div className='scroll-box'>
+                <ul className='pending-list'>
+                    {props.pendingRequests.map((friend) =>
                         <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
-                        <button style={{float:'right'}} onClick={() => declineFriendReqeust(friend.content)}>Decline</button>
-                        <button style={{float:'right'}} onClick={() => acceptFriendRequest(friend.content)}>Accept</button> 
+                        <button className='decline-button' onClick={() => declineFriendReqeust(friend.content)}><AiOutlineStop /></button>
+                        <button className='accept-button' onClick={() => acceptFriendRequest(friend.content)}><AiOutlineCheck /></button>
                         </li>)}
                 </ul>
             </div>
 
             <h2 className='title'>Sent Requests</h2>
-            <div style={{height:'100px', overflowY:'auto', scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
+            <div className='scroll-box'>
+                <ul className='sent-list'>
                     {props.sentRequests.map((friend) => <li key={friend.id}>{friend.content}</li>)}
                 </ul>
             </div>
