@@ -84,7 +84,7 @@ function FriendRequests(props) {
             <div className='scroll-box'>
                 <ul className='pending-list'>
                     {props.pendingRequests.map((friend) =>
-                        <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
+                        <li key={friend.id}>{friend.content}
                         <button className='decline-button' onClick={() => declineFriendReqeust(friend.content)}><AiOutlineStop /></button>
                         <button className='accept-button' onClick={() => acceptFriendRequest(friend.content)}><AiOutlineCheck /></button>
                         </li>)}

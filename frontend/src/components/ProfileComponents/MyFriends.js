@@ -92,7 +92,7 @@ function MyFriends(props) {
             <div className='scroll-box'>
                 <ul className='friend-list'>
                     {props.clique.map((friend) =>
-                        <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
+                        <li key={friend.id}>{friend.content}
                         <button className='remove-friend-button' type='button' onClick={() => removeFriend(friend.content)}>Remove Friend</button>
                         </li>)}
                 </ul>
