@@ -64,7 +64,7 @@ function MyFriends(props) {
             });
 
             let res = JSON.parse(await response.text());
-            
+
             // JWT expired, return User to login page
             if (res.jwtExpired) {
                 localStorage.removeItem('userData');
@@ -88,19 +88,19 @@ function MyFriends(props) {
 
     return(
         <div>
-            <h2>Friends</h2>
-            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', paddingRight:'10px', listStyle:'none'}}>
-                    {props.clique.map((friend) => 
-                        <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
-                        <button style={{float:'right'}} type='button' onClick={() => removeFriend(friend.content)}>Remove Friend</button>
+            <h2 className='title'>My Clique</h2>
+            <div className='scroll-box'>
+                <ul className='friend-list'>
+                    {props.clique.map((friend) =>
+                        <li key={friend.id}>{friend.content}
+                        <button className='remove-friend-button' type='button' onClick={() => removeFriend(friend.content)}>Remove Friend</button>
                         </li>)}
                 </ul>
             </div>
 
             <form onSubmit={ addFriend }>
                 <span>Add a Friend   </span>
-                <input type='text' id='addFriend' placeholder='Username of friend...' 
+                <input type='text' id='addFriend' placeholder='Username of friend...'
                     value={addFriendUsername} onChange={(e) => setAddFriendUsername(e.target.value)} />
                 <input type='submit' onClick={ addFriend } />
             </form>

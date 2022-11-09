@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
-import ProfileHeader from '../components/ProfileComponents/ProfileHeader';
 import ProfileSettings from '../components/ProfileComponents/ProfileSettings';
 import MyFriends from '../components/ProfileComponents/MyFriends';
 import FriendRequests from '../components/ProfileComponents/FriendRequests';
@@ -14,6 +13,12 @@ const bp = require('../components/Path');
 
 const ProfilePage = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const logout = function() {
+        localStorage.removeItem('userData');
+        localStorage.removeItem('accessToken');
+        window.location.href = '/';
+    }
 
     const [username, setUsername] = useState(userData.Username);
 
@@ -97,17 +102,30 @@ const ProfilePage = () => {
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
           <MenuTabs />
-            <Page classname='leftpage'>
-                <ProfileHeader name={username} />
+            <Page className='leftpage'>
+              <div className='profile-header'>
+                <div className='title' >
+                  My Profile
+                </div>
+              </div>
+              <div className="profile-content">
                 <ProfileSettings id={userData._id} changeUsername={changeUsername} />
+              </div>
+              <div className='profile-footer'>
+                <button className="button" onClick={logout}>
+                  Log Out
+                </button>
+              </div>
             </Page>
 
-            <Page classname='rightpage'>
+            <Page className='rightpage'>
+              <div className="page-format">
                 <MyFriends clique={clique} removeFromCliqueIDs={removeFromCliqueIDs}
                     addToSentRequestIDs={addToSentRequestIDs} />
                 <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests}
                     removeFromPendingRequestIDs={removeFromPendingRequestIDs}
                     addToCliqueIDs={addToCliqueIDs} />
+              </div>
             </Page>
         </div>
     );

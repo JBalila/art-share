@@ -1,4 +1,7 @@
 import React from 'react';
+import './ProfilePage.css';
+
+import { AiOutlineStop, AiOutlineCheck } from "react-icons/ai";
 
 const bp = require('../Path');
 
@@ -18,7 +21,7 @@ function FriendRequests(props) {
             });
 
             let res = JSON.parse(await response.text());
-            
+
             // JWT expired, return User to login page
             if (res.jwtExpired) {
                 localStorage.removeItem('userData');
@@ -78,21 +81,21 @@ function FriendRequests(props) {
 
     return(
         <div>
-            <h2>Sent Friend-Requests</h2>
-            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', listStyle:'none'}}>
-                    {props.sentRequests.map((friend) => <li key={friend.id}>{friend.content}</li>)}
+            <h2 className='title'>Pending Requests</h2>
+            <div className='scroll-box'>
+                <ul className='pending-list'>
+                    {props.pendingRequests.map((friend) =>
+                        <li key={friend.id}>{friend.content}
+                        <button className='decline-button' onClick={() => declineFriendReqeust(friend.content)}><AiOutlineStop /></button>
+                        <button className='accept-button' onClick={() => acceptFriendRequest(friend.content)}><AiOutlineCheck /></button>
+                        </li>)}
                 </ul>
             </div>
 
-            <h2>Pending Friend-Requests</h2>
-            <div style={{height:'120px', overflowY:'auto', scrollBehavior: 'smooth'}}>
-                <ul style={{paddingLeft:'10px', paddingRight:'10px', listStyle:'none'}}>
-                    {props.pendingRequests.map((friend) => 
-                        <li style={{paddingBottom:'10px'}} key={friend.id}>{friend.content}
-                        <button style={{float:'right'}} onClick={() => declineFriendReqeust(friend.content)}>Decline</button>
-                        <button style={{float:'right'}} onClick={() => acceptFriendRequest(friend.content)}>Accept</button> 
-                        </li>)}
+            <h2 className='title'>Sent Requests</h2>
+            <div className='scroll-box'>
+                <ul className='sent-list'>
+                    {props.sentRequests.map((friend) => <li key={friend.id}>{friend.content}</li>)}
                 </ul>
             </div>
         </div>

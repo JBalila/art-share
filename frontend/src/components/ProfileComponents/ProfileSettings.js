@@ -9,8 +9,7 @@ function ProfileSettings(props) {
 
     const [username, setUsername] = useState('');
     const [usernameMessage, setUsernameMessage] = useState('');
-    const [toggle, setToggle] = useState('none');
-    const [buttonName, setButtonName] = useState('Change Password');
+
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMessage, setPasswordMessage] = useState('');
@@ -55,17 +54,6 @@ function ProfileSettings(props) {
         }
     }
 
-    const handleToggle = function() {
-        if (toggle === 'none') {
-            setToggle('');
-            setButtonName('Close');
-        }
-        else {
-            setToggle('none');
-            setButtonName('Change Password');
-        }
-    }
-
     const handleChangePassword = async function() {
         if (password.trim() === '' || confirmPassword.trim() === '') {
             setPasswordMessage('Please fill in all fields');
@@ -105,27 +93,26 @@ function ProfileSettings(props) {
 
     return(
         <div>
-            <div>
-                <label htmlFor='changeUsername'>Change Username</label>
-                <input type='text' id='changeUsername' placeholder='Change Username'
+            <div className='input-format'>
+                <label htmlFor='changeUsername' className='label'>Change Username</label>
+                <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
                     value={username} onChange={(e) => setUsername(e.target.value)} />
-
-                <button type='button' onClick={handleChangeUsername}>Submit</button> <br />
+                <button type='button' className='submit-button' onClick={handleChangeUsername}>
+                    Submit
+                </button> <br />
                 <span>{usernameMessage}</span>
             </div>
-            <br /> <br /> <br />
-            <button type='button' onClick={handleToggle}>{buttonName}</button>
-            <div style={{display:toggle}}>
-                <label htmlFor='changePassword'>Change Password</label>
-                <input type='password' id='changePassword' placeholder='Password'
+            <div className='input-format'>
+                <label htmlFor='changePassword' className='label'>New Password</label>
+                <input type='password' className='form-control' id='changePassword' placeholder='Password'
                     value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                <label htmlFor='confirmPassword'>Confirm Password</label>
-                <input type='password' id='confirmPassword' placeholder='Confirm Password'
+                <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
+                <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
                     value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
-                <br /> <button type='button' onClick={handleChangePassword}>Submit</button>
-                <br /> <span>{passwordMessage}</span>
+                <button type='button' className='submit-button' onClick={handleChangePassword}>Submit</button> <br />
+                <span>{passwordMessage}</span>
             </div>
         </div>
     );
