@@ -112,6 +112,9 @@ const ProfilePage = () => {
                 <ProfileSettings id={userData._id} changeUsername={changeUsername} />
               </div>
               <div className='profile-footer'>
+                <button className="save-button" onClick="#">
+                  Save Changes
+                </button>
                 <button className="button" onClick={logout}>
                   Log Out
                 </button>
@@ -122,6 +125,7 @@ const ProfilePage = () => {
               <div className="page-format">
                 <MyFriends clique={clique} removeFromCliqueIDs={removeFromCliqueIDs}
                     addToSentRequestIDs={addToSentRequestIDs} />
+                    
                 <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests}
                     removeFromPendingRequestIDs={removeFromPendingRequestIDs}
                     addToCliqueIDs={addToCliqueIDs} />
