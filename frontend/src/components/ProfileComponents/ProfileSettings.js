@@ -92,27 +92,36 @@ function ProfileSettings(props) {
     }
 
     return(
-        <div>
+        <div className="input-container">
             <div className='input-format'>
-                <label htmlFor='changeUsername' className='label'>Change Username</label>
-                <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
-                    value={username} onChange={(e) => setUsername(e.target.value)} />
-                <button type='button' className='submit-button' onClick={handleChangeUsername}>
-                    Submit
-                </button> <br />
-                <span>{usernameMessage}</span>
-            </div>
-            <div className='input-format'>
-                <label htmlFor='changePassword' className='label'>New Password</label>
-                <input type='password' className='form-control' id='changePassword' placeholder='Password'
-                    value={password} onChange={(e) => setPassword(e.target.value)} />
+                <div className="change-user">
+                    <label htmlFor='changeUsername' className='label'>Change Username</label>
+                    <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
+                        value={username} onChange={(e) => setUsername(e.target.value)} />
+                    
+                    {/* SUBMIT BUTTON USERNAME
+                    <button type='button' className='submit-button' onClick={handleChangeUsername}>
+                        Submit
+                    </button> <br />
+                    */}
+                    <span>{usernameMessage}</span>
+                </div>
+    
+                <div className="change-pass">
+                    <label htmlFor='changePassword' className='label'>New Password</label>
+                    <input type='password' className='form-control' id='changePassword' placeholder='Password'
+                        value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
-                <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
-                    value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
+                    <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
+                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    
+                    {/*  SUBMIT BUTTON PASSWORD
+                    <button type='button' className='submit-button' onClick={handleChangePassword}>Submit</button> <br />
+                    */}
 
-                <button type='button' className='submit-button' onClick={handleChangePassword}>Submit</button> <br />
-                <span>{passwordMessage}</span>
+                    <span>{passwordMessage}</span>
+                </div>
             </div>
         </div>
     );

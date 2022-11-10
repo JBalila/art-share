@@ -88,23 +88,27 @@ function MyFriends(props) {
 
     return(
         <div>
-            <h2 className='title'>My Clique</h2>
-            <div className='scroll-box'>
-                <ul className='friend-list'>
-                    {props.clique.map((friend) =>
-                        <li key={friend.id}>{friend.content}
-                        <button className='remove-friend-button' type='button' onClick={() => removeFriend(friend.content)}>Remove Friend</button>
-                        </li>)}
-                </ul>
+            <div class="profile-header">
+                <h2 className='title'>My Clique</h2>
             </div>
 
-            <form onSubmit={ addFriend }>
-                <span>Add a Friend   </span>
-                <input type='text' id='addFriend' placeholder='Username of friend...'
-                    value={addFriendUsername} onChange={(e) => setAddFriendUsername(e.target.value)} />
-                <input type='submit' onClick={ addFriend } />
-            </form>
-            <span>{addFriendError}</span> <br />
+            <div className="profile-content">
+                <div className='scroll-box'>
+                    <ul className='friend-list'>
+                        {props.clique.map((friend) =>
+                            <li key={friend.id}>{friend.content}
+                            <button className='remove-friend-button' type='button' onClick={() => removeFriend(friend.content)}>Remove Friend</button>
+                            </li>)}
+                    </ul>
+                </div>
+                    <form onSubmit={ addFriend }>
+                        <span>Add a Friend   </span>
+                        <input type="text" id="addFriend" placeholder="Username of friend..."
+                            value={addFriendUsername} onChange={(e) => setAddFriendUsername(e.target.value)} />
+                        <input type='submit' onClick={ addFriend } />
+                    </form>
+                <span>{addFriendError}</span> <br />
+            </div>
         </div>
     );
 }
