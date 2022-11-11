@@ -97,19 +97,19 @@ const ProfilePage = () => {
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
           <MenuTabs />
             <Page className='leftpage'>
-              <div className='profile-header'>
-                <div className='title' >
-                  My Profile
-                </div>
+              <div className="page-format">
+                <ProfileSettings id={userData._id} changeUsername={changeUsername} />
               </div>
-              <ProfileSettings id={userData._id} changeUsername={changeUsername} />
             </Page>
 
             <Page className='rightpage'>
               <div className="page-format">
+                  <div className='title' >
+                    My Clique
+                  </div>
                 <MyFriends clique={clique} removeFromCliqueIDs={removeFromCliqueIDs}
                     addToSentRequestIDs={addToSentRequestIDs} />
-                    
+
                 <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests}
                     removeFromPendingRequestIDs={removeFromPendingRequestIDs}
                     addToCliqueIDs={addToCliqueIDs} />

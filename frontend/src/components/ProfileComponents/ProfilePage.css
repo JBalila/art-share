@@ -1,31 +1,12 @@
-.profile-header {
+/* ProfileSettings.js Styling */
+.profile-settings {
   font-family: "Georgia", serif;
   width: 100%;
-  height: 15%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
-
-.profile-content {
-  font-family: "Georgia", serif;
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.profile-footer {
-  font-family: "Georgia", serif;
-  width: 100%;
-  height: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .submit-button {
@@ -39,6 +20,7 @@
   background-color: #aa344d;
 }
 
+/* FriendRequests.js Styling */
 .scroll-box {
   height: 100px;
   overflow-y: auto;
@@ -46,19 +28,14 @@
 }
 
 .friend-list {
-  padding-left: 10px;
-  padding-right: 10px;
   list-style: none;
 }
 
 .pending-list {
-  padding-left: 10px;
-  padding-right: 10px;
   list-style: none;
 }
 
 .sent-list {
-  padding-left: 10px;
   list-style: none;
 }
 

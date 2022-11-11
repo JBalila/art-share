@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import './ProfilePage.css';
 
 import bp from '../Path';
 import functions from '../../functions';
@@ -101,38 +102,36 @@ function ProfileSettings(props) {
     }
 
     return(
-        <div>
-            <div className='profile-content'>
-                <div className="input-container">
-                    <div className='input-format'>
-                        <div className="change-user">
-                            <label htmlFor='changeUsername' className='label'>Change Username</label>
-                            <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
-                                value={username} onChange={(e) => setUsername(e.target.value)} />
-                            <span>{usernameMessage}</span>
-                        </div>
-            
-                        <div className="change-pass">
-                            <label htmlFor='changePassword' className='label'>New Password</label>
-                            <input type='password' className='form-control' id='changePassword' placeholder='Password'
-                                value={password} onChange={(e) => setPassword(e.target.value)} />
+        <div className='profile-settings'>
+          <div className='title' >
+          My Profile
+          </div>
+            <div className='input-format'>
+                <div className="change-user">
+                    <label htmlFor='changeUsername' className='label'>Change Username</label>
+                    <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
+                        value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <span>{usernameMessage}</span>
+                </div>
 
-                            <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
-                            <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
-                                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                            <span>{passwordMessage}</span>
-                        </div>
-                    </div>
+                <div className="change-pass">
+                    <label htmlFor='changePassword' className='label'>New Password</label>
+                    <input type='password' className='form-control' id='changePassword' placeholder='Password'
+                        value={password} onChange={(e) => setPassword(e.target.value)} />
+
+                    <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
+                    <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
+                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <span>{passwordMessage}</span>
                 </div>
             </div>
-            <div className='profile-footer'>
-                <button className="save-button" onClick={handleChanges}>
-                  Save Changes
-                </button>
-                <button className="button" onClick={logout}>
-                  Log Out
-                </button>
-            </div>
+
+            <button className="submit-button" onClick={handleChanges}>
+              Save Changes
+            </button>
+            <button className="submit-button" onClick={logout}>
+              Log Out
+            </button>
         </div>
     );
 };
