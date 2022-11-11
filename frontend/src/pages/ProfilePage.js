@@ -5,7 +5,6 @@ import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
 import ProfileSettings from '../components/ProfileComponents/ProfileSettings';
 import MyFriends from '../components/ProfileComponents/MyFriends';
-import FriendRequests from '../components/ProfileComponents/FriendRequests';
 
 import background from '../background.jpg';
 
@@ -104,15 +103,10 @@ const ProfilePage = () => {
 
             <Page className='rightpage'>
               <div className="page-format">
-                  <div className='title' >
-                    My Clique
-                  </div>
-                <MyFriends clique={clique} removeFromCliqueIDs={removeFromCliqueIDs}
-                    addToSentRequestIDs={addToSentRequestIDs} />
-
-                <FriendRequests sentRequests={sentRequests} pendingRequests={pendingRequests}
+                <MyFriends sentRequests={sentRequests} pendingRequests={pendingRequests}
                     removeFromPendingRequestIDs={removeFromPendingRequestIDs}
-                    addToCliqueIDs={addToCliqueIDs} />
+                    addToCliqueIDs={addToCliqueIDs} clique={clique} removeFromCliqueIDs={removeFromCliqueIDs}
+                    addToSentRequestIDs={addToSentRequestIDs} />
               </div>
             </Page>
         </div>

@@ -1,14 +1,17 @@
 div#outer-rectangle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   background-color: #CC5871;
-  width: 450px;
-  height: 600px;
+  width: 28%;
+  height: 85%;
   box-shadow: 8px 8px 7px 5px rgba(0, 0, 0, 0.5);
 }
 
 div#inner-rectangle {
   position: relative;
   background-color: white;
-  width: 400px;
-  height: 550px;
-  margin: 25px;
+  width: 90%;
+  height: 92%;
 }

@@ -21,8 +21,18 @@
 }
 
 /* FriendRequests.js Styling */
+.friends-page {
+  font-family: "Georgia", serif;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .scroll-box {
-  height: 100px;
+  width: 80%;
   overflow-y: auto;
   scrollBehavior: smooth;
 }
