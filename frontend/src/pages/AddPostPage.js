@@ -27,13 +27,13 @@ function AddPostPage() {
     function convertFileToBase64(file) {
         let prom = new Promise((resolve, reject) => {
             const reader = new FileReader();
-      
+
             reader.addEventListener('load', () => resolve(reader.result));
             reader.addEventListener('error', (err) => reject(console.log(err)));
-      
+
             reader.readAsBinaryString(file);
         });
-      
+
         return prom.then((bin) => btoa(bin)).catch((err) => err);
       }
 
@@ -101,17 +101,16 @@ function AddPostPage() {
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
           <MenuTabs />
             <Page classname='leftpage'>
-                <div className='add-post-page'>
-                    <ArtUpload setFile={setFile} />
-                </div>
+              <div className='page-format'>
+                <ArtUpload setFile={setFile} />
+              </div>
             </Page>
             <Page classname='rightpage'>
-                <div className='add-post-page'>
+                <div className='page-format'>
                     <ArtInfo setTitle={setTitle} setDescription={setDescription}
                         setIsPublic={setIsPublic} error={error} />
-
-                    <button type='button' className='button' id='addPost' onClick={post}>
-                            Post
+                    <button type='button' className='button' onClick={post}>
+                      Post
                     </button>
                 </div>
             </Page>

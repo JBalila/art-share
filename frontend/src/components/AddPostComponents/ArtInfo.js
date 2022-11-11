@@ -31,31 +31,22 @@ function ArtInfo(props) {
     }
 
     return(
-        <div>
-            <div className='add-post-form'>
-                <span className='add-post-title'>Title</span> <br />
-                <input type='text' className='add-post-input' placeholder='Title' 
-                    value={title} onChange={handleTitleChange} />
-            </div>
+        <div className='artinfo-container'>
 
-            <div className='add-post-form'>
-                <span className='add-post-title'>Description</span> <br />
-                <textarea placeholder='Description' className='add-post-textarea'
-                    value={description} onChange={handleDescriptionChange} />
-            </div>
+            <label className='art-info-label' htmlFor='Title'>Title</label>
+            <input className='add-post-input' id='Title' placeholder='Title'
+                value={title} onChange={handleTitleChange} />
+            <label className='art-info-label' htmlFor='Description'>Description</label>
+            <textarea className='add-post-textarea' id='Description' placeholder='Description'
+                value={description} onChange={handleDescriptionChange} />
 
             <div className='add-post-visibility'>
-                <div>
-                    <span>Public</span>
-                    <input type='checkbox' id='public' className='add-post-checkbox'
-                        checked={isPublic} onChange={handleVisibilityChange} />
-                </div>
-
-                <div>
-                    <span>Private</span>
-                    <input type='checkbox' id='private' className='add-post-checkbox'
-                        checked={isPrivate} onChange={handleVisibilityChange} />
-                </div>
+                <span>Public</span>
+                <input type='checkbox' id='public' className='add-post-checkbox'
+                    checked={isPublic} onChange={handleVisibilityChange} />
+                <span>Private</span>
+                <input type='checkbox' id='private' className='add-post-checkbox'
+                    checked={isPrivate} onChange={handleVisibilityChange} />
             </div>
 
             <br />

@@ -1,0 +1,19 @@
+.menu-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-tab {
+  background-color: #D9D9D9;
+  float: right;
+}
+
+.add-post-tab {
+  background-color: #D9D9D9;
+  float: right;
+}
+
+.profile-tab {
+  background-color: #D9D9D9;
+  float: right;
+}
