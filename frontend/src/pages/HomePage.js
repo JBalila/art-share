@@ -5,6 +5,7 @@ import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
 import GridItem from '../components/HomePageComponents/GridItem';
 
+import '../components/HomePageComponents/HomePage.css';
 import background from "../background.jpg";
 
 const bp = require('../components/Path');
@@ -85,22 +86,26 @@ function HomePage() {
     <div className="background" style={{ backgroundImage: `url(${background})` }}>
       <MenuTabs />
         <Page className="leftPage">
-          <div>
+          <div className='post-format'>
             {leftPagePosts.map((post) => <GridItem key={post._id} post={post} />)}
+          </div>
+          <div>
             {page > 0 ?
-              <button type='button' onClick={decrementPage}>Decrement Page</button>
-            :
-              <p></p>
+                <button type='button' onClick={decrementPage}>Decrement Page</button>
+              :
+                <p></p>
             }
           </div>
         </Page>
         <Page className="rightPage">
-          <div>
+          <div className='post-format'>
             {rightPagePosts.map((post) => <GridItem key={post._id} post={post} />)}
+          </div>
+          <div>
             {((page+1)*POSTS_PER_SCREEN) < posts.length ?
-              <button type='button' onClick={incrementPage}>Increment Page</button>
-            :
-              <p></p>
+                <button type='button' onClick={incrementPage}>Increment Page</button>
+              :
+                <p></p>
             }
           </div>
         </Page>
