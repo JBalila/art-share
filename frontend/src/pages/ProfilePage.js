@@ -14,12 +14,6 @@ const bp = require('../components/Path');
 const ProfilePage = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
 
-    const logout = function() {
-        localStorage.removeItem('userData');
-        localStorage.removeItem('accessToken');
-        window.location.href = '/';
-    }
-
     const [username, setUsername] = useState(userData.Username);
 
     const [cliqueIDs, setCliqueIDs] = useState(userData.Clique);
@@ -108,17 +102,7 @@ const ProfilePage = () => {
                   My Profile
                 </div>
               </div>
-              <div className="profile-content">
-                <ProfileSettings id={userData._id} changeUsername={changeUsername} />
-              </div>
-              <div className='profile-footer'>
-                <button className="save-button" onClick="#">
-                  Save Changes
-                </button>
-                <button className="button" onClick={logout}>
-                  Log Out
-                </button>
-              </div>
+              <ProfileSettings id={userData._id} changeUsername={changeUsername} />
             </Page>
 
             <Page className='rightpage'>

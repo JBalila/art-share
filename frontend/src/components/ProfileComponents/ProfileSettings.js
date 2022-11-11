@@ -14,12 +14,15 @@ function ProfileSettings(props) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMessage, setPasswordMessage] = useState('');
 
-    const handleChangeUsername = async function() {
-        if (username.trim() === '') {
-            setUsernameMessage('Please fill in the field');
-            return;
-        }
+    const handleChanges = async function() {
+        if (username.trim() !== '')
+            handleChangeUsername();
 
+        if (password.trim() !== '' || confirmPassword.trim() !== '')
+            handleChangePassword();
+    }
+
+    const handleChangeUsername = async function() {
         let obj = {userID: props.id, newUsername: username, accessToken: accessToken};
         let jsonPayload = JSON.stringify(obj);
 
@@ -56,7 +59,7 @@ function ProfileSettings(props) {
 
     const handleChangePassword = async function() {
         if (password.trim() === '' || confirmPassword.trim() === '') {
-            setPasswordMessage('Please fill in all fields');
+            setPasswordMessage('Please fill in both password fields');
             return;
         }
 
@@ -91,37 +94,44 @@ function ProfileSettings(props) {
         }
     }
 
+    const logout = function() {
+        localStorage.removeItem('userData');
+        localStorage.removeItem('accessToken');
+        window.location.href = '/';
+    }
+
     return(
-        <div className="input-container">
-            <div className='input-format'>
-                <div className="change-user">
-                    <label htmlFor='changeUsername' className='label'>Change Username</label>
-                    <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
-                        value={username} onChange={(e) => setUsername(e.target.value)} />
-                    
-                    {/* SUBMIT BUTTON USERNAME
-                    <button type='button' className='submit-button' onClick={handleChangeUsername}>
-                        Submit
-                    </button> <br />
-                    */}
-                    <span>{usernameMessage}</span>
-                </div>
-    
-                <div className="change-pass">
-                    <label htmlFor='changePassword' className='label'>New Password</label>
-                    <input type='password' className='form-control' id='changePassword' placeholder='Password'
-                        value={password} onChange={(e) => setPassword(e.target.value)} />
+        <div>
+            <div className='profile-content'>
+                <div className="input-container">
+                    <div className='input-format'>
+                        <div className="change-user">
+                            <label htmlFor='changeUsername' className='label'>Change Username</label>
+                            <input type='text' className='form-control' id='changeUsername' placeholder='New Username'
+                                value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <span>{usernameMessage}</span>
+                        </div>
+            
+                        <div className="change-pass">
+                            <label htmlFor='changePassword' className='label'>New Password</label>
+                            <input type='password' className='form-control' id='changePassword' placeholder='Password'
+                                value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                    <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
-                    <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
-                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                    
-                    {/*  SUBMIT BUTTON PASSWORD
-                    <button type='button' className='submit-button' onClick={handleChangePassword}>Submit</button> <br />
-                    */}
-
-                    <span>{passwordMessage}</span>
+                            <label htmlFor='confirmPassword' className='label'>Confirm Password</label>
+                            <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password'
+                                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <span>{passwordMessage}</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div className='profile-footer'>
+                <button className="save-button" onClick={handleChanges}>
+                  Save Changes
+                </button>
+                <button className="button" onClick={logout}>
+                  Log Out
+                </button>
             </div>
         </div>
     );
