@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const bp = require('../Path.js');
 
 function GridItem({ post }) {
+    const navigate = useNavigate();
+    const imageBinary = `data:image/png;base64,${post.Image}`;
+
     const [authorName, setAuthorName] = useState('');
     const [altText, setAltText] = useState('');
-
-    const imageBinary = `data:image/png;base64,${post.Image}`;
 
     useEffect(() => {
         getUsername();
@@ -37,12 +39,8 @@ function GridItem({ post }) {
         }
     }
 
-    const viewPost = function() {
-        console.log(post._id);
-    }
-
     return(
-        <div className='grid-item' onClick={viewPost}>
+        <div className='grid-item' onClick={() => navigate('/viewpost', {state:post})}>
             <img src={imageBinary} alt={altText} />
             <div className='post-info'>
                 <span id='title-and-author'>{post.Title} by {authorName}</span>
