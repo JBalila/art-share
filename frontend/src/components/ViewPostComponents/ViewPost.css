@@ -57,3 +57,23 @@
 #unlike {
     color: red;
 }
+
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    width: 90%;
+    height: 90%;
+    margin: 3vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.comment {
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 2vh;
+    background-color: lightgray;
+    padding: 1vh;
+}

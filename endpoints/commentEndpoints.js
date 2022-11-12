@@ -63,7 +63,7 @@ exports.setCommentEndpoints = function(app, client) {
           console.log(e.message);
       }
 
-      comment = Comment.findOne({_id: commentID});
+      comment = await Comment.findOne({_id: commentID});
       if (comment) {
         comment.Likes++;
         comment.LikedBy.push(likedBy._id);
@@ -104,9 +104,9 @@ exports.setCommentEndpoints = function(app, client) {
           console.log(e.message);
       }
 
-      comment = Comment.findOne({_id: commentID});
-      if (post) {
-        indexInLikedBy = comment.LikedBy.index0f(likedBy._id);
+      comment = await Comment.findOne({_id: commentID});
+      if (comment) {
+        indexInLikedBy = comment.LikedBy.indexOf(likedBy._id);
         if (indexInLikedBy !== -1)
             comment.LikedBy.splice(indexInLikedBy, 1);
         
