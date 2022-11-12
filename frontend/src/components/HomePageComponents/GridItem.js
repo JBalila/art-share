@@ -40,7 +40,7 @@ function GridItem({ post }) {
     }
 
     return(
-        <div className='grid-item' onClick={() => navigate('/viewpost', {state:post})}>
+        <div className='grid-item' onClick={() => navigate('/viewpost', {state:{post:post, authorName:authorName}})}>
             <img src={imageBinary} alt={altText} />
             <div className='post-info'>
                 <span id='title-and-author'>{post.Title} by {authorName}</span>
