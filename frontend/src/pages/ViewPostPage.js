@@ -35,6 +35,8 @@ function ViewPostPage() {
         getComments();
     }, []);
 
+    const [addCommentText, setAddCommentText] = useState('');
+
     const getComments = async function() {
         let obj = {postID: post._id, accessToken: accessToken};
         let jsonPayload = JSON.stringify(obj);
@@ -147,6 +149,88 @@ function ViewPostPage() {
         }
     }
 
+    const addComment = async function() {
+        let obj = {author: userID, post: post._id, comment: addCommentText, accessToken: accessToken};
+        let jsonPayload = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(bp.buildPath('/api/addComment'), {
+                method:'POST', body:jsonPayload, headers: {
+                    'Content-Type':'application/json'
+                }
+            });
+
+            let res = JSON.parse(await response.text());
+
+            // JWT expired, return User to login page
+            if (res.jwtExpired) {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('accessToken');
+                window.location.href='/';
+                return;
+            }
+
+            if (res.error) {
+                console.error(res.error);
+                return;
+            }
+
+            setAddCommentText('');
+
+            let newComment = {
+                PostID: post._id,
+                AuthorID: userID,
+                Timestamp: new Date(),
+                Text: addCommentText,
+                Likes: 0,
+                LikedBy: []
+            };
+            setComments(comments => [...comments, newComment]);
+
+            localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
+        }
+        catch(e) {
+            console.error(e);
+        }
+    }
+
+    const handleDelete = async function() {
+        let confirmDelete = window.confirm('Are you sure you want to delete this post?');
+        if (!confirmDelete) return;
+
+        let obj ={postID: post._id, accessToken: accessToken};
+        let jsonPayload = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(bp.buildPath('/api/deletePost'), {
+                method:'DELETE', body:jsonPayload, headers: {
+                    'Content-Type':'application/json'
+                }
+            });
+
+            let res = JSON.parse(await response.text());
+
+            // JWT expired, return User to login page
+            if (res.jwtExpired) {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('accessToken');
+                window.location.href='/';
+                return;
+            }
+
+            if (res.error) {
+                console.error(res.error);
+                return;
+            }
+
+            localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
+            window.location.href='/home';
+        }
+        catch(e) {
+            console.error(e);
+        }
+    }
+
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <MenuTabs />
@@ -156,11 +240,14 @@ function ViewPostPage() {
                     <div className='image-container'>
                         <img src={imageBinary} alt='' />
                     </div>
-                    <span id='view-post-likes'>
-                        <CgHeart className='like-button' id='like'  style={{display:display.like}} onClick={likeImage} />
-                        <CgHeart className='like-button' id='unlike' style={{display:display.unlike}} onClick={unlikeImage} />
-                        {' ' + imageLikes}
-                    </span>
+                    <div id='view-post-settings'>
+                        {userID === post.AuthorID ? <button id='delete-post' onClick={handleDelete}>Delete</button> : <p></p>}
+                        <span id='view-post-likes'>
+                            <CgHeart className='like-button' id='like'  style={{display:display.like}} onClick={likeImage} />
+                            <CgHeart className='like-button' id='unlike' style={{display:display.unlike}} onClick={unlikeImage} />
+                            {' ' + imageLikes}
+                        </span>
+                    </div>
                     <p id='view-post-description'>{post.Description}</p>
                 </div>
             </Page>
@@ -168,9 +255,13 @@ function ViewPostPage() {
                 <div className='comments-container'>
                     {comments.map(comment => <Comment key={comment._id} comment={comment} />)}
                 </div>
-                <button type='button'>
-                    Add Comment
-                </button>
+                <div className='add-comment-form'>
+                    <textarea id='add-comment-textarea' placeholder='Add comment here' 
+                        value={addCommentText} onChange={(e) => setAddCommentText(e.target.value)} />
+                    <button className='button' id='add-comment-button' type='button' onClick={addComment}>
+                        Add Comment
+                    </button>
+                </div>
             </Page>
         </div>
     );

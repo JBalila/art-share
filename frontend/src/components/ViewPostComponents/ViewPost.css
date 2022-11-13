@@ -31,11 +31,24 @@
     transition: .3s;
 }
 
+#view-post-settings {
+    width: 100%
+}
+
+#delete-post {
+    font-size: 18px;
+    font-weight: 500;
+    background-color: rgb(236, 70, 70);
+    margin-top: 0.5vh;
+    margin-left: 2vw;
+    float: left;
+}
+
 #view-post-likes {
     font-size: 18px;
-    align-self: flex-end;
     margin-top: 0.5vh;
     margin-right: 2vw;
+    float: right;
 }
 
 #view-post-description {
@@ -64,7 +77,7 @@
     align-items: flex-start;
     justify-content: start;
     width: 90%;
-    height: 90%;
+    height: 60%;
     margin: 3vh;
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -72,8 +85,29 @@
 
 .comment {
     width: 100%;
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 2vh;
     background-color: lightgray;
     padding: 1vh;
+}
+
+.add-comment-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-comment-textarea {
+    background-color: #D9D9D9;
+    border-style: solid;
+    border-color: #D9D9D9;
+    border-width: 3px;
+    resize: none;
+    width: 80%;
+    height: 40%;
+}
+
+#add-comment-button {
+    width: 50%
 }

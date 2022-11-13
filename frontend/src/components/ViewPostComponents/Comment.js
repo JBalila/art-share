@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { CgHeart } from 'react-icons/cg'; 
 
@@ -17,6 +17,36 @@ function Comment({ comment }) {
         else
             return {like:'', unlike:'none'};
     });
+
+    const [commentAuthor, setCommentAuthor] = useState('');
+    useEffect(() => {
+        getCommentAuthor();
+    }, []);
+    
+    const getCommentAuthor = async function() {
+        let obj = {userID: comment.AuthorID};
+        let jsonPayload = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(bp.buildPath('/api/getUsername'), {
+                method:'POST', body:jsonPayload, headers: {
+                    'Content-Type':'application/json'
+                }
+            });
+
+            let res = JSON.parse(await response.text());
+
+            if (res.error) {
+                console.error(res.error);
+                return;
+            }
+
+            setCommentAuthor(res);
+        }
+        catch(e) {
+            console.error(e);
+        }
+    }
 
     const likeComment = async function() {
         let obj = {commentID: comment._id, likedBy: userID, accessToken: accessToken };
@@ -98,7 +128,7 @@ function Comment({ comment }) {
 
     return(
         <div className='comment'>
-            <span>{comment.Text}</span> <br />
+            <span><b>{commentAuthor}:</b> {comment.Text}</span> <br />
             <span>
                 <CgHeart className='like-button' id='like'  style={{display:display.like}} onClick={likeComment} />
                 <CgHeart className='like-button' id='unlike' style={{display:display.unlike}} onClick={unlikeComment} />
