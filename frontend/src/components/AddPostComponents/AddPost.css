@@ -9,7 +9,7 @@
 }
 
 .art-info-label {
-  font-size: 25px;
+  font-size: 1.25vw;
 }
 
 .add-post-input {
@@ -36,13 +36,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 1vw;
 }
 
 .add-post-message {
   align-self: center;
   text-align: center;
-  font-size: 18px;
+  font-size: 1vw;
 }
 
 /* AryUpload.js styling */
@@ -72,5 +72,5 @@
 }
 
 .add-post-upload-button {
-  font-size: 20px;
+  font-size: 1vw;
 }

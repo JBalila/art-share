@@ -11,7 +11,7 @@
 
 .submit-button {
   background-color: #CC5871;
-  font-size: 25px;
+  font-size: 1.25vw;
   width: 50%;
   border: none;
 }
@@ -28,11 +28,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .scroll-box {
   width: 80%;
+  height: 25%;
   overflow-y: auto;
   scrollBehavior: smooth;
 }
@@ -50,13 +51,16 @@
 }
 
 .remove-friend-button {
+  font-size: 0.75vw;
   float: right;
 }
 
 .decline-button {
+  font-size: 0.75vw;
   float: right;
 }
 
 .accept-button {
+  font-size: 0.75vw;
   float: right;
 }

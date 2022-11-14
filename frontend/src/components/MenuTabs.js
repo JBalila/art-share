@@ -34,13 +34,11 @@ export default function MenuTabs() {
 
   return (
       <div className='menu-tabs'>
-        <IconContext.Provider value={{ className: "shared-class", size: 40 }}>
           <button className='home-tab' onClick={navigateToHome}><CgHome /></button>
           <hr />
           <button className='add-post-tab' onClick={navigateToAddPost}><CgAdd /></button>
           <hr />
           <button className='profile-tab' onClick={navigateToProfile}><CgProfile /></button>
-        </IconContext.Provider>
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/addpost" element={<AddPost />} />

@@ -4,16 +4,19 @@
 }
 
 .home-tab {
+  font-size: 1.75vw;
   background-color: #D9D9D9;
   float: right;
 }
 
 .add-post-tab {
+  font-size: 2vw;
   background-color: #D9D9D9;
   float: right;
 }
 
 .profile-tab {
+  font-size: 2vw;
   background-color: #D9D9D9;
   float: right;
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './ProfilePage.css';
 
 import { AiOutlineStop, AiOutlineCheck } from "react-icons/ai";
+import { MdCancel } from "react-icons/md";
 
 const bp = require('../Path');
 
@@ -169,7 +170,7 @@ function MyFriends(props) {
                     {props.clique.map((friend) =>
                         <li key={friend.id}>{friend.content}
                         <button className='remove-friend-button' type='button'
-                            onClick={() => removeFriend(friend.content)}>Remove Friend</button>
+                            onClick={() => removeFriend(friend.content)}><MdCancel /></button>
                         </li>)}
                 </ul>
             </div>

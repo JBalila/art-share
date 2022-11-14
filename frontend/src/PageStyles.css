@@ -9,7 +9,7 @@
 }
 
 .title {
-  font-size: 40px;
+  font-size: 2.15vw;
   text-align: center;
 }
 
@@ -27,12 +27,12 @@
 
 .input-format {
   text-align: left;
-  font-size: 20px;
+  font-size: 1vw;
   width: 80%;
 }
 
 .change-user {
-  padding-bottom: 20px;
+  padding-bottom: 1vw;
 }
 
 /* FORM CONTROL FOR DEFAULT PAGES */
@@ -54,27 +54,13 @@
   border: 1px solid #da5767;
 }
 
-
-/* BUTTON STYLING FOR SAVE (PROFILE) */
-.save-button {
-  background-color: #CC5871;
-  font-size: 25px;
-  width: 50%;
-  border: none;
-  margin: 15px;
-}
-
-.save-button:hover {
-  background-color: #aa344d;
-}
-
 /* BUTTON STYLING */
 .button {
   background-color: #CC5871;
-  font-size: 25px;
+  font-size: 1.25vw;
   width: 40%;
   border: none;
-  margin: 15px;
+  margin: 1vw;
 }
 
 .button:hover {
@@ -82,7 +68,7 @@
 }
 
 .footer {
-  font-size: 17px;
+  font-size: 1vw;
 }
 
 .link {
