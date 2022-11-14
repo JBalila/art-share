@@ -27,7 +27,7 @@
 
 .input-format {
   text-align: left;
-  font-size: 1vw;
+  font-size: 1.25vw;
   width: 80%;
 }
 
@@ -57,7 +57,7 @@
 /* BUTTON STYLING */
 .button {
   background-color: #CC5871;
-  font-size: 1.25vw;
+  font-size: 1.5vw;
   width: 40%;
   border: none;
   margin: 1vw;
