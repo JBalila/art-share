@@ -1,3 +1,4 @@
+/* Image Styling */
 .post-container {
   display: flex;
   flex-direction: column;
@@ -58,6 +59,44 @@
   margin-top: 2vh;
 }
 
+/* Lightbox Styling */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 10;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(111, 109, 109);
+  opacity: 1;
+}
+
+.close-cursor {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* Like Styling */
+
 .like-button {
   cursor: pointer;
   font-size: 1.5vw;
@@ -70,6 +109,8 @@
 #unlike {
   color: red;
 }
+
+/* Comment Styling */
 
 .comments-container {
   display: flex;

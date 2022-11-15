@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom';
 
 import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
-import { CgHeart } from 'react-icons/cg'; 
+import { CgHeart } from 'react-icons/cg';
+import Lightbox from '../components/ViewPostComponents/Lightbox';
 import Comment from '../components/ViewPostComponents/Comment';
 
 import '../components/ViewPostComponents/ViewPost.css';
@@ -20,6 +21,8 @@ function ViewPostPage() {
     let post = location.state.post;
     let authorName = location.state.authorName;
     const imageBinary = `data:image/png;base64,${post.Image}`;
+
+    const [lightboxVisible, setLightboxVisible] = useState(false);
 
     const [imageLikes, setImageLikes] = useState(post.Likes);
     const [imageLikedBy, setImageLikedBy] = useState(post.LikedBy);
@@ -231,14 +234,19 @@ function ViewPostPage() {
         }
     }
 
+    const toggleFullImage = function() {
+        setLightboxVisible(!lightboxVisible);
+    }
+
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <MenuTabs />
+            <Lightbox isVisible={lightboxVisible} image={imageBinary} closeImage={toggleFullImage} />
             <Page className='leftPage'>
                 <div className='post-container'>
                     <span id='post-title'>{post.Title}</span>
                     <div className='image-container'>
-                        <img src={imageBinary} alt='' />
+                        <img src={imageBinary} alt='' onClick={toggleFullImage} />
                     </div>
                     <div id='view-post-settings'>
                         {userID === post.AuthorID ? <button id='delete-post' onClick={handleDelete}>Delete</button> : <p></p>}
