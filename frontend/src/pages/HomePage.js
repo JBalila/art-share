@@ -77,6 +77,16 @@ function HomePage() {
     getFeed();
   }
 
+  const handleDisplayChange = function(e) {
+    setPage(0);
+    setDisplayParams(e.target.value);
+  }
+
+  const handleSortChange = function(e) {
+    setPage(0);
+    setSortParams(e.target.value);
+  }
+
   // Refetch feed when User moves page
   useEffect(() => {
     getFeed();
@@ -116,7 +126,7 @@ function HomePage() {
       </Page>
       <div className='display-and-sort'>
         <span>Display Options</span>
-        <div className='display-options' onChange={(e) => setDisplayParams(e.target.value)}>
+        <div className='display-options' onChange={(e) => handleDisplayChange(e)}>
           <div className='input'>
             <input type='radio' name='display' id='all'
               value='All' defaultChecked />
@@ -139,7 +149,7 @@ function HomePage() {
         <br /> <br />
 
         <span>Sort Options</span>
-        <div className='sort-options' onChange={(e) => setSortParams(e.target.value)}>
+        <div className='sort-options' onChange={(e) => handleSortChange(e)}>
           <div className='input'>
             <input type='radio' name='sort' id='date'
               value='Date' defaultChecked />
