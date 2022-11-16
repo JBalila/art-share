@@ -7,6 +7,7 @@ import GridItem from '../components/HomePageComponents/GridItem';
 
 import '../components/HomePageComponents/HomePage.css';
 import background from "../background.jpg";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 const bp = require('../components/Path');
 
@@ -15,7 +16,7 @@ const POSTS_PER_SCREEN = POSTS_PER_PAGE * 2;
 
 function HomePage() {
   const myClique = JSON.parse(localStorage.getItem('userData')).Clique;
-  
+
   const [posts, setPosts] = useState([]);
   const [leftPagePosts, setLeftPagePosts] = useState([]);
   const [rightPagePosts, setRightPagePosts] = useState([]);
@@ -91,7 +92,7 @@ function HomePage() {
           </div>
           <div>
             {page > 0 ?
-                <button type='button' onClick={decrementPage}>Decrement Page</button>
+                <button className='decrement-button' type='button' onClick={decrementPage}><FaArrowAltCircleLeft /></button>
               :
                 <p></p>
             }
@@ -103,7 +104,7 @@ function HomePage() {
           </div>
           <div>
             {((page+1)*POSTS_PER_SCREEN) < posts.length ?
-                <button type='button' onClick={incrementPage}>Increment Page</button>
+                <button className='increment-button' type='button' onClick={incrementPage}><FaArrowAltCircleRight /></button>
               :
                 <p></p>
             }
