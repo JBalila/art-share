@@ -117,34 +117,46 @@ function HomePage() {
       <div className='display-and-sort'>
         <span>Display Options</span>
         <div className='display-options' onChange={(e) => setDisplayParams(e.target.value)}>
-          <input type='radio' name='display' id='all'
-            value='All' defaultChecked />
-          <label htmlFor='all'>All</label>
+          <div className='input'>
+            <input type='radio' name='display' id='all'
+              value='All' defaultChecked />
+            <label htmlFor='all'>All</label>
+          </div>
 
-          <input type='radio' name='display' id='friends'
-            value='Friends' />
-          <label htmlFor='friends'>Friends</label>
+          <div className='input'>
+            <input type='radio' name='display' id='friends'
+              value='Friends' />
+            <label htmlFor='friends'>Friends</label>
+          </div>
 
-          <input type='radio' name='display' id='self'
-            value='Self' />
-          <label htmlFor='self'>Self</label>
+          <div className='input'>
+            <input type='radio' name='display' id='self'
+              value='Self' />
+            <label htmlFor='self'>Self</label>
+          </div>
         </div>
 
         <br /> <br />
 
         <span>Sort Options</span>
         <div className='sort-options' onChange={(e) => setSortParams(e.target.value)}>
-          <input type='radio' name='sort' id='date'
-            value='Date' defaultChecked />
-          <label htmlFor='date'>Date</label>
+          <div className='input'>
+            <input type='radio' name='sort' id='date'
+              value='Date' defaultChecked />
+            <label htmlFor='date'>Date</label>
+          </div>
 
-          <input type='radio' name='sort' id='likes'
-            value='Likes' />
-          <label htmlFor='likes'>Likes</label>
+          <div className='input'>
+            <input type='radio' name='sort' id='likes'
+              value='Likes' />
+            <label htmlFor='likes'>Likes</label>
+          </div>
 
-          <input type='radio' name='sort' id='title'
-            value='Title' />
-          <label htmlFor='title'>Title</label>
+          <div className='input'>
+            <input type='radio' name='sort' id='title'
+              value='Title' />
+            <label htmlFor='title'>Title</label>
+          </div>
         </div>
       </div>
     </div>
