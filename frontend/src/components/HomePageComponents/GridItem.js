@@ -44,7 +44,7 @@ function GridItem({ post }) {
             <img src={imageBinary} alt={altText} />
             <div className='post-info'>
                 <span id='title-and-author'>{post.Title} by {authorName}</span>
-                <span id='post-likes'>{post.Likes} Likes</span>
+                <span id='post-likes'>{post.Likes} Like(s)</span>
             </div>
         </div>
     );

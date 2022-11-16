@@ -39,9 +39,9 @@
 #delete-post {
   font-size: 1vw;
   font-weight: 500;
-  background-color: rgb(236, 70, 70);
   margin-top: 0.5vh;
   margin-left: 2vw;
+  width: fit-content;
   float: left;
 }
 

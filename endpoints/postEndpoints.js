@@ -8,9 +8,54 @@ const Comment = require('../models/Comment');
 exports.setPostEndpoints = function(app, client) {
     app.post('/api/feed', async(req, res, next) => {
         
-        const { clique } = req.body;
+        const { userID, search, displayParams, sortParams, offset, limit } = req.body;
 
-        let postArray = await Post.find().or([{isPublic: true}, {AuthorId: {$in: clique}}]);
+        let sort, displayQuery;
+
+        // Get User object
+        let user = await User.findOne({_id: userID});
+        if (!user) {
+            res = {error: 'This user does not exist'};
+            res.status(200).json(ret);
+            return;
+        }
+
+        // Display requested posts
+        switch (displayParams) {
+            case "Friends":
+                displayQuery = {$or: [{AuthorID: {$in: user.Clique}}]};
+                break;
+            case "Self":
+                displayQuery = {$or: [{AuthorID: user._id}]};
+                break;
+            default:
+                displayQuery = {$or: [{IsPublic: true}, {AuthorID: user._id}, {AuthorID: {$in: user.Clique}}]};
+                break;
+        }
+
+        // Find posts with <search> in Title
+        const regex = new RegExp(`.*${search}.*`);
+        const searchQuery = {'Title': {$regex: regex, $options: 'i'}};
+
+        // Sort images by requested field
+        switch (sortParams) {
+            case "Likes":
+                sort = {"Likes": -1};
+                break;
+            case "Title":
+                sort = {"Title": 1};
+                break;
+            default:
+                sort = {};
+                break;
+        }
+
+        let postArray = await Post.find()
+            .and([searchQuery, displayQuery])
+            .collation({locale: 'en'})
+            .sort(sort)
+            .skip(offset)
+            .limit(limit);
         
         res.status(200).json(postArray);
     });

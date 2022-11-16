@@ -249,7 +249,10 @@ function ViewPostPage() {
                         <img src={imageBinary} alt='' onClick={toggleFullImage} />
                     </div>
                     <div id='view-post-settings'>
-                        {userID === post.AuthorID ? <button id='delete-post' onClick={handleDelete}>Delete</button> : <p></p>}
+                        {userID === post.AuthorID ? 
+                                <button className='button' id='delete-post' onClick={handleDelete}>Delete</button> 
+                            : 
+                                <p></p>}
                         <span id='view-post-likes'>
                             <CgHeart className='like-button' id='like'  style={{display:display.like}} onClick={likeImage} />
                             <CgHeart className='like-button' id='unlike' style={{display:display.unlike}} onClick={unlikeImage} />

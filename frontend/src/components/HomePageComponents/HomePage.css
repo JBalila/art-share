@@ -1,3 +1,4 @@
+/* Post Grid */
 .post-format {
   display: flex;
   flex-direction: column;
@@ -41,6 +42,91 @@
 
 #post-likes {
   float: right;
+}
+
+/* Search-Bar */
+.search-bar {
+  position: absolute;
+  top: 1.5vh;
+  left: 14%;
+  height: 5vh;
+  width: 55vw;
+  display: flex;
+  flex-direction: row;
+  font-family: "Georgia", serif;
+}
+
+.search-bar input {
+  margin-left: 3vw;
+  width: 80%;
+  background-color: #D9D9D9;
+  border-radius: 0;
+}
+
+.search-bar input:focus {
+  color: #000000;
+  background-color: #D9D9D9;
+  border: 1px solid #da5767;
+}
+
+.search-bar input:hover {
+  color: #000000;
+  background-color: #D9D9D9;
+  border: 1px solid #da5767;
+}
+
+.search-bar button {
+  width: 12%;
+  margin-left: 1vw;
+  background-color: #CC5871;
+}
+
+.search-bar button:hover {
+  background-color: #aa344d;
+}
+
+/* Display/Sort Options */
+.display-and-sort {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  font-family: "Georgia", serif;
+}
+
+.display-and-sort span {
+  background-color: #343434;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  height: 2.3rem;
+  width: 20vw;
+}
+
+.display-options {
+  float: left;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+  width: 20vw;
+}
+
+.sort-options {
+  float: left;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+  width: 20vw;
+}
+
+.display-and-sort input {
+  margin-left: 1rem;
+  margin-right: 0.2rem;
 }
 
 .decrement-button {
