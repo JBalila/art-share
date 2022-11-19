@@ -61,7 +61,7 @@
 
 /* Lightbox Styling */
 .modal {
-  display: block;
+  display: grid;
   position: fixed;
   z-index: 10;
   padding-top: 50px;
@@ -71,7 +71,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(111, 109, 109);
+  background-color: rgba(83, 82, 82, 0.536);
   opacity: 1;
 }
 
@@ -88,11 +88,14 @@
 
 .modal-content {
   position: relative;
-  background-color: #fefefe;
+  border-style: none;
+  background-color: #fefefe00;
   margin: auto;
   padding: 0;
   width: 90%;
   max-width: 1200px;
+  height: 80vh;
+  object-fit: contain;
 }
 
 /* Like Styling */
