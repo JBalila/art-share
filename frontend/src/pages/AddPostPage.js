@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
+import Buffer from '../components/Buffer';
 import ArtUpload from '../components/AddPostComponents/ArtUpload';
 import ArtInfo from '../components/AddPostComponents/ArtInfo';
 import '../PageStyles.css';
@@ -114,6 +115,7 @@ function AddPostPage() {
                     </button>
                 </div>
             </Page>
+            <Buffer />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
+import Buffer from '../components/Buffer';
 import { CgHeart } from 'react-icons/cg';
 import Lightbox from '../components/ViewPostComponents/Lightbox';
 import Comment from '../components/ViewPostComponents/Comment';
@@ -77,7 +78,7 @@ function ViewPostPage() {
     const likeImage = async function() {
         let obj = {postID: post._id, userID: userID, accessToken: accessToken};
         let jsonPayload = JSON.stringify(obj);
-        
+
         try {
             const response = await fetch(bp.buildPath('/api/likePost'), {
                 method:'PATCH', body:jsonPayload, headers: {
@@ -112,11 +113,11 @@ function ViewPostPage() {
             console.error(e);
         }
     }
-    
+
     const unlikeImage = async function() {
         let obj = {postID: post._id, userID: userID, accessToken: accessToken};
         let jsonPayload = JSON.stringify(obj);
-        
+
         try {
             const response = await fetch(bp.buildPath('/api/unlikePost'), {
                 method:'PATCH', body:jsonPayload, headers: {
@@ -249,9 +250,9 @@ function ViewPostPage() {
                         <img src={imageBinary} alt='' onClick={toggleFullImage} />
                     </div>
                     <div id='view-post-settings'>
-                        {userID === post.AuthorID ? 
-                                <button className='button' id='delete-post' onClick={handleDelete}>Delete</button> 
-                            : 
+                        {userID === post.AuthorID ?
+                                <button className='button' id='delete-post' onClick={handleDelete}>Delete</button>
+                            :
                                 <p></p>}
                         <span id='view-post-likes'>
                             <CgHeart className='like-button' id='like'  style={{display:display.like}} onClick={likeImage} />
@@ -267,13 +268,14 @@ function ViewPostPage() {
                     {comments.map(comment => <Comment key={comment._id} comment={comment} />)}
                 </div>
                 <div className='add-comment-form'>
-                    <textarea id='add-comment-textarea' placeholder='Add comment here' 
+                    <textarea id='add-comment-textarea' placeholder='Add comment here'
                         value={addCommentText} onChange={(e) => setAddCommentText(e.target.value)} />
                     <button className='button' id='add-comment-button' type='button' onClick={addComment}>
                         Add Comment
                     </button>
                 </div>
             </Page>
+            <Buffer />
         </div>
     );
 }

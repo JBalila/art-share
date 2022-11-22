@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
+import Buffer from '../components/Buffer';
 import ProfileSettings from '../components/ProfileComponents/ProfileSettings';
 import MyFriends from '../components/ProfileComponents/MyFriends';
 
@@ -94,7 +95,7 @@ const ProfilePage = () => {
 
     return(
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
-          <MenuTabs />
+            <MenuTabs />
             <Page className='leftpage'>
               <div className="page-format">
                 <ProfileSettings id={userData._id} changeUsername={changeUsername} />
@@ -109,6 +110,7 @@ const ProfilePage = () => {
                     addToSentRequestIDs={addToSentRequestIDs} />
               </div>
             </Page>
+            <Buffer />
         </div>
     );
 };

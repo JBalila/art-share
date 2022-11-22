@@ -78,3 +78,7 @@
 .link:hover {
   color: #dd8c9e;
 }
+
+.buffer {
+  width: 12vw;
+}
