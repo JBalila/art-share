@@ -30,6 +30,11 @@ const PostSchema = new Schema({
     IsPublic: {
         type: Boolean,
         default: true
+    },
+    TimeCreated: {
+        type: Date,
+        immutable: true,
+        default: () => Date.now()
     }
 });
 

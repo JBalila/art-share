@@ -37,16 +37,17 @@ exports.setPostEndpoints = function(app, client) {
         const regex = new RegExp(`.*${search}.*`);
         const searchQuery = {'Title': {$regex: regex, $options: 'i'}};
 
+        sort = [["TimeCreated", -1]];
+
         // Sort images by requested field
         switch (sortParams) {
             case "Likes":
-                sort = {"Likes": -1};
+                sort.push(["Likes", -1]);
                 break;
             case "Title":
-                sort = {"Title": 1};
+                sort.push(["Title", 1]);
                 break;
             default:
-                sort = {};
                 break;
         }
 
