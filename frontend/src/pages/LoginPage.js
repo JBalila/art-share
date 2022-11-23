@@ -43,7 +43,7 @@ function LoginPage() {
       localStorage.setItem('userData', JSON.stringify(res.user));
       localStorage.setItem('accessToken', JSON.stringify(res.accessToken));
 
-      window.location.href='/profile';
+      window.location.href='/home';
     }
     catch(e) {
       console.error(e);
