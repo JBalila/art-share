@@ -57,7 +57,17 @@ function LoginPage() {
             <div className="title">
             Welcome <br/>
             To <br/>
-            <div className="title-color"><b>Art Share</b></div>
+            <div className="title-effect">
+              <span className='one'>A</span>
+              <span className='two'>R</span>
+              <span className='three'>T</span>
+              <span className='four'> </span>
+              <span className='five'>S</span>
+              <span className='six'>H</span>
+              <span className='seven'>A</span>
+              <span className='eight'>R</span>
+              <span className='nine'>E</span>  
+            </div>
             </div>
           </div>
         </Page>

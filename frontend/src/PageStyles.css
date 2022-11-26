@@ -13,9 +13,67 @@
   text-align: center;
 }
 
-.title-color {
+.title-effect {
   color: #B93E3E;
+  position: relative;
 }
+
+.title-effect span {
+  position: relative;
+  display: inline-block;
+  color: #B93E3E;
+  text-transform: uppercase;
+  animation: waviy 2.5s infinite;
+  animation-delay: calc(.2s * var(--i));
+}
+
+/* WAVE ANIMATION */
+
+@keyframes waviy {
+  0%,50%,100% {
+    transform: translateY(0)
+  }
+  20% {
+    transform: translateY(-15px)
+  }
+}
+
+.one {
+  --i: 1;
+}
+
+.two {
+  --i: 2;
+}
+
+.three {
+  --i: 3;
+}
+
+.four {
+  --i: 4;
+}
+
+.five {
+  --i: 5;
+}
+
+.six {
+  --i: 6;
+}
+
+.seven {
+  --i: 7;
+}
+
+.eight {
+  --i: 8;
+}
+
+.nine {
+  --i: 9;
+}
+
 
 /* INPUT STYLING */
 .input-container {
