@@ -37,7 +37,7 @@ export default function MenuTabs() {
           <div className='home-tab'>
             <button className='home-tab-button' onClick={navigateToHome}>
               <div className='home-icon' >
-                <CgHome />
+                {/* <CgHome /> */}
               </div>
             </button>
           </div>
