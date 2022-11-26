@@ -243,38 +243,38 @@ function ViewPostPage() {
         <div className="background" style={{ backgroundImage: `url(${background})` }}>
             <MenuTabs />
             <Lightbox isVisible={lightboxVisible} image={imageBinary} closeImage={toggleFullImage} />
-            <Page className='leftPage'>
-                <div className='post-container'>
-                    <span id='post-title'>{post.Title}</span>
-                    <div className='image-container'>
-                        <img src={imageBinary} alt='' onClick={toggleFullImage} />
+                <Page className='leftPage'>
+                    <div className='post-container'>
+                        <span id='post-title'>{post.Title}</span>
+                        <div className='image-container'>
+                            <img src={imageBinary} alt='' onClick={toggleFullImage} />
+                        </div>
+                        <div id='view-post-settings'>
+                            {userID === post.AuthorID ?
+                                    <button className='button' id='delete-post' onClick={handleDelete}>Delete</button>
+                                :
+                                    <p></p>}
+                            <span id='view-post-likes'>
+                                <CgHeart className='like-button' id='like'  style={{display:display.like}} onClick={likeImage} />
+                                <CgHeart className='like-button' id='unlike' style={{display:display.unlike}} onClick={unlikeImage} />
+                                {' ' + imageLikes}
+                            </span>
+                        </div>
+                        <p id='view-post-description'>{post.Description}</p>
                     </div>
-                    <div id='view-post-settings'>
-                        {userID === post.AuthorID ?
-                                <button className='button' id='delete-post' onClick={handleDelete}>Delete</button>
-                            :
-                                <p></p>}
-                        <span id='view-post-likes'>
-                            <CgHeart className='like-button' id='like'  style={{display:display.like}} onClick={likeImage} />
-                            <CgHeart className='like-button' id='unlike' style={{display:display.unlike}} onClick={unlikeImage} />
-                            {' ' + imageLikes}
-                        </span>
+                </Page>
+                <Page className='rightPage'>
+                    <div className='comments-container'>
+                        {comments.map(comment => <Comment key={comment._id} comment={comment} />)}
                     </div>
-                    <p id='view-post-description'>{post.Description}</p>
-                </div>
-            </Page>
-            <Page className='rightPage'>
-                <div className='comments-container'>
-                    {comments.map(comment => <Comment key={comment._id} comment={comment} />)}
-                </div>
-                <div className='add-comment-form'>
-                    <textarea id='add-comment-textarea' placeholder='Add comment here'
-                        value={addCommentText} onChange={(e) => setAddCommentText(e.target.value)} />
-                    <button className='button' id='add-comment-button' type='button' onClick={addComment}>
-                        Add Comment
-                    </button>
-                </div>
-            </Page>
+                    <div className='add-comment-form'>
+                        <textarea id='add-comment-textarea' placeholder='Add comment here'
+                                value={addCommentText} onChange={(e) => setAddCommentText(e.target.value)} />
+                        <button className='button' id='add-comment-button' type='button' onClick={addComment}>
+                            Add Comment
+                        </button>
+                    </div>
+                </Page>
             <Buffer />
         </div>
     );

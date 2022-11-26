@@ -4,7 +4,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
 }
+
+.post-container:hover, .post-container:focus, .post-container:active {
+  -webkit-transform: scale(0.95);
+  transform: scale(0.985);
+}
+
 
 #post-title {
   margin-top: 2.5vh;
@@ -103,14 +117,33 @@
 .like-button {
   cursor: pointer;
   font-size: 1.5vw;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
 }
 
 #like {
   color: black;
 }
 
+#like:active {
+  -webkit-transform: scale(3.5);
+  transform: scale(3.5);
+}
+
 #unlike {
   color: red;
+}
+
+#unlike:active {
+  -webkit-transform: scale(3.5);
+  transform: scale(3.5);
 }
 
 /* Comment Styling */
@@ -150,8 +183,25 @@
   resize: none;
   width: 80%;
   height: 40%;
+  transition: .3s;
 }
 
+
 #add-comment-button {
-  width: 50%
+  width: 50%;
+  background-color: #da5767;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px #da5767;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: background;
+  transition-property: background;
+  box-shadow: inset 0 0 0 4px #da5767, 0 0 1px #da5767;
+}
+
+#add-comment-button:hover, #add-comment-button:focus, #add-comment-button:active {
+  background-color: #da576699;
 }
