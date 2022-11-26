@@ -174,18 +174,16 @@ function MyFriends(props) {
                         </li>)}
                 </ul>
             </div>
-
-            <form onSubmit={ addFriend }>
-                <span>Add a Friend  </span>
-                <input type="text" id="addFriend" placeholder="Username of friend..."
-                    value={addFriendUsername} onChange={(e) => setAddFriendUsername(e.target.value)} />
-                <input type='submit' onClick={ addFriend } />
-            </form>
-            <span>{addFriendError}</span> <br />
-
-            <h2 className="title">Pending Requests</h2>
-            <div className="scroll-box">
-                <ul className="pending-list">
+                <form className='add-friend-container' onSubmit={ addFriend }>
+                    <span className='add-a-friend'>Add a Friend  </span>
+                    <input type='text' className='form-control' id='username-input' placeholder='Username of friend...'
+                        value={addFriendUsername} onChange={(e) => setAddFriendUsername(e.target.value)} />
+                    <input type='submit' className='submit-button-friend' onClick={ addFriend } />
+                </form>
+                <span>{addFriendError}</span> <br />
+            <h2 className='title'>Pending Requests</h2>
+            <div className='scroll-box'>
+                <ul className='pending-list'>
                     {props.pendingRequests.map((friend) =>
                         <li key={friend.id}>{friend.content}
                         <button className='decline-button'
