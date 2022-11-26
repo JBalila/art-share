@@ -10,14 +10,24 @@
 }
 
 .submit-button {
-  background-color: #CC5871;
   font-size: 1.5vw;
   width: 50%;
   border: none;
+  background-color: #da5767;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px #da5767;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: background;
+  transition-property: background;
+  box-shadow: inset 0 0 0 4px #da5767, 0 0 1px #da5767;
 }
 
-.submit-button:hover {
-  background-color: #aa344d;
+.submit-button:hover, .submit-button:focus, .submit-button:active {
+  background-color: #da576699;
 }
 
 /* FriendRequests.js Styling */
@@ -63,4 +73,39 @@
 .accept-button {
   font-size: 0.75vw;
   float: right;
+}
+
+#username-input {
+  display: inline-block;
+}
+
+.submit-button-friend {
+  height: 25%;
+  width: 30%;
+  background-color: #da5767;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px #da5767;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: background;
+  transition-property: background;
+  box-shadow: inset 0 0 0 4px #da5767, 0 0 1px #da5767;
+  border: none;
+}
+
+.submit-button-friend:hover, .submit-button-friend:focus, .submit-button-friend:active {
+  background-color: #da576699;
+}
+
+.add-a-friend {
+  display: inline-block;
+  padding-bottom: 1ch;
+} 
+
+.add-friend-container {
+  display: inline;
+  padding-bottom: 2ch;
 }
