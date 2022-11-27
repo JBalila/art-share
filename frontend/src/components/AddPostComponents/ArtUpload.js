@@ -16,7 +16,7 @@ function ArtUpload(props) {
     return(
         <div className='add-post-file-upload'>
             <label className='art-upload-label' htmlFor='fileUpload'>
-                <img src={UploadImg} />
+                <img src={UploadImg} id='image'/>
             </label>
             <form>
                 <input type='file' accept='.jpg,.png' id='fileUpload' onChange={ handleChange } />

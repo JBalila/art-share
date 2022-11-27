@@ -47,8 +47,8 @@
 
 /* AryUpload.js styling */
 .add-post-file-upload {
-  width: 100%;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,6 +58,35 @@
 .art-upload-label {
   display: block;
   width: 80%;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.art-upload-label:hover, .art-upload-label:focus, .art-upload-label:active {
+  -webkit-animation-name: art-upload-label;
+  animation-name: art-upload-label;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
+
+@-webkit-keyframes art-upload-label {
+  to {
+    -webkit-transform: scale(0.96);
+    transform: scale(0.96);
+  }
+}
+@keyframes art-upload-label {
+  to {
+    -webkit-transform: scale(0.96);
+    transform: scale(0.96);
+  }
 }
 
 .add-post-file-upload input {
@@ -73,4 +102,8 @@
 
 .add-post-upload-button {
   font-size: 1vw;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: #da5767;
 }
