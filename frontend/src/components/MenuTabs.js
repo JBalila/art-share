@@ -36,19 +36,17 @@ export default function MenuTabs() {
       <div className='menu-tabs'>
           <div className='home-tab'>
             <button className='home-tab-button' onClick={navigateToHome}>
-              <div className='home-icon' >
-                {/* <CgHome /> */}
-              </div>
+                <CgHome className='home-icon' />
             </button>
           </div>
           <div className='add-post-tab'>
             <button className='add-post-tab-button' onClick={navigateToAddPost}>
-              {/* <CgAdd /> */}
+              <CgAdd className='add-icon' />
             </button>
           </div>
           <div className='profile-tab'>
             <button className='profile-tab-button' onClick={navigateToProfile}>
-              {/* <CgProfile /> */}
+              <CgProfile className='profile-icon' />
             </button>
           </div>
         <Routes>

@@ -154,17 +154,6 @@
   margin-right: 0.4rem;
 }
 
-.decrement-button {
-  font-size: 1.75vw;
-  color: #aa344d;
-  background: none;
-  border: none;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin: 1vw;
-}
-
 .increment-button {
   font-size: 1.75vw;
   color: #aa344d;
@@ -175,12 +164,65 @@
   bottom: 0;
   right: 0;
   margin: 1vw;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
 }
 
-.decrement-button:hover {
-  color: #dd8c9e;
+.increment-button .increment-icon {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.increment-button:hover .increment-icon {
+  -webkit-transform: translateX(4px);
+  transform: translateX(4px);
 }
 
 .increment-button:hover {
+  color: #dd8c9e;
+}
+
+.decrement-button {
+  font-size: 1.75vw;
+  color: #aa344d;
+  background: none;
+  border: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 1vw;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+
+.decrement-button .decrement-icon {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.decrement-button:hover .decrement-icon {
+  -webkit-transform: translateX(-4px);
+  transform: translateX(-4px);
+}
+
+.decrement-button:hover {
   color: #dd8c9e;
 }

@@ -106,7 +106,9 @@ function HomePage() {
         </div>
         <div>
           {page > 0 ?
-              <button className='decrement-button' type='button' onClick={decrementPage}><FaArrowAltCircleLeft /></button>
+              <button className='decrement-button' type='button' onClick={decrementPage}>
+                <FaArrowAltCircleLeft className='decrement-icon' />
+              </button>
             :
               <p></p>
           }
@@ -118,7 +120,9 @@ function HomePage() {
         </div>
         <div>
           {posts.length > POSTS_PER_SCREEN ?
-              <button className='increment-button' type='button' onClick={incrementPage}><FaArrowAltCircleRight /></button>
+              <button className='increment-button' type='button' onClick={incrementPage}>
+                <FaArrowAltCircleRight className='increment-icon' />
+              </button>
             :
               <p></p>
           }
