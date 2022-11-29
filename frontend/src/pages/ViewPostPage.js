@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Page from '../components/Page';
 import MenuTabs from '../components/MenuTabs';
@@ -11,11 +11,13 @@ import Comment from '../components/ViewPostComponents/Comment';
 
 import '../components/ViewPostComponents/ViewPost.css';
 import background from "../background.jpg";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 const bp = require('../components/Path');
 
 function ViewPostPage() {
     const location = useLocation();
+    const navigate = useNavigate();
     const userID = JSON.parse(localStorage.getItem('userData'))._id;
     const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
@@ -244,6 +246,7 @@ function ViewPostPage() {
             <MenuTabs />
             <Lightbox isVisible={lightboxVisible} image={imageBinary} closeImage={toggleFullImage} />
                 <Page className='leftPage'>
+                  <button className='back-button' type='button' onClick={() => navigate(-1)}><FaArrowAltCircleLeft /></button>
                     <div className='post-container'>
                         <span id='post-title'>{post.Title}</span>
                         <div className='image-container'>
