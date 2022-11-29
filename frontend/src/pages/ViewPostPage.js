@@ -246,7 +246,9 @@ function ViewPostPage() {
             <MenuTabs />
             <Lightbox isVisible={lightboxVisible} image={imageBinary} closeImage={toggleFullImage} />
                 <Page className='leftPage'>
-                  <button className='back-button' type='button' onClick={() => navigate(-1)}><FaArrowAltCircleLeft /></button>
+                    <button className='back-button' type='button' onClick={() => navigate(-1)}>
+                        <FaArrowAltCircleLeft className='back-icon' />
+                    </button>
                     <div className='post-container'>
                         <span id='post-title'>{post.Title}</span>
                         <div className='image-container'>
