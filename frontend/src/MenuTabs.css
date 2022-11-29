@@ -1,6 +1,59 @@
 .menu-tabs {
   display: flex;
   flex-direction: column;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+
+.menu-tabs .home-tab-button,
+.menu-tabs .add-post-tab-button,
+.menu-tabs .profile-tab-button {
+  transition: all 0.3s ease 0s;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.menu-tabs .home-tab-button:hover,
+.menu-tabs .add-post-tab-button:hover,
+.menu-tabs .profile-tab-button:hover {
+  background-color: #da5767;
+  transition: all 0.3s ease 0s;
+  -webkit-transform: translateY(-4px);
+  transform: translateY(-4px);
+}
+
+.menu-tabs .home-icon,
+.menu-tabs .add-icon,
+.menu-tabs .profile-icon {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.menu-tabs .home-tab-button:hover .home-icon,
+.menu-tabs .add-post-tab-button:hover .add-icon,
+.menu-tabs .profile-tab-button:hover .profile-icon {
+  color: #fff;
+  -webkit-transform: scale(1.2) translateZ(0);
+  transform: scale(1.2) translateZ(0);
+  
 }
 
 .home-tab {
@@ -15,20 +68,7 @@
   margin-left: 8vw;
   border-color: rgba(255, 255, 255, 0);
   background-color: #D9D9D9;
-  transition: transform 330ms ease-in-out;
 }
-
-.home-tab-button:hover {
-  width: 4vw;
-  height: 4vw;
-  margin-left: 8vw;
-  transform: scaleX(3);
-}
-
-.home-tab-button:hover + .home-icon {
-  transform: translate(-45px, 0);
-}
-
 
 .add-post-tab {
   padding-top: 2ch;
@@ -42,14 +82,6 @@
   margin-left: 8vw;
   border-color: rgba(255, 255, 255, 0);
   background-color: #D9D9D9;
-  transition: transform 330ms ease-in-out;
-}
-
-.add-post-tab-button:hover {
-  width: 4vw;
-  height: 4vw;
-  margin-left: 8vw;
-  transform: scaleX(3);
 }
 
 .profile-tab {
@@ -64,12 +96,4 @@
   margin-left: 8vw;
   border-color: rgba(255, 255, 255, 0);
   background-color: #D9D9D9;
-  transition: transform 330ms ease-in-out;
-}
-
-.profile-tab-button:hover {
-  width: 4vw;
-  height: 4vw;
-  margin-left: 8vw;
-  transform: scaleX(3);
 }
