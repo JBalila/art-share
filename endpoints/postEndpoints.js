@@ -37,26 +37,25 @@ exports.setPostEndpoints = function(app, client) {
         const regex = new RegExp(`.*${search}.*`);
         const searchQuery = {'Title': {$regex: regex, $options: 'i'}};
 
-        sort = [["TimeCreated", -1]];
-
         // Sort images by requested field
         switch (sortParams) {
             case "Likes":
-                sort.push(["Likes", -1]);
+                sort = {Likes: -1, TimeCreated: -1};
                 break;
             case "Title":
-                sort.push(["Title", 1]);
+                sort = {Title: 1, TimeCreated: -1};
                 break;
             default:
+                sort = {TimeCreated: -1};
                 break;
         }
 
         let postArray = await Post.find()
             .and([searchQuery, displayQuery])
             .collation({locale: 'en'})
-            .sort(sort)
             .skip(offset)
-            .limit(limit);
+            .limit(limit)
+            .sort(sort);
         
         res.status(200).json(postArray);
     });
