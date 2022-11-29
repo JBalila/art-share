@@ -1,3 +1,19 @@
+.back-button {
+  font-size: 1.75vw;
+  color: #aa344d;
+  background: none;
+  border: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 1vw;
+  z-index: 1;
+}
+
+.back-button:hover {
+  color: #dd8c9e;
+}
+
 /* Image Styling */
 .post-container {
   display: flex;
@@ -18,7 +34,6 @@
   -webkit-transform: scale(0.95);
   transform: scale(0.985);
 }
-
 
 #post-title {
   margin-top: 2.5vh;
@@ -99,7 +114,6 @@
   cursor: pointer;
 }
 
-
 .modal-content {
   position: relative;
   border-style: none;
@@ -113,7 +127,6 @@
 }
 
 /* Like Styling */
-
 .like-button {
   cursor: pointer;
   font-size: 1.5vw;
@@ -147,7 +160,6 @@
 }
 
 /* Comment Styling */
-
 .comments-container {
   display: flex;
   flex-direction: column;
@@ -185,7 +197,6 @@
   height: 40%;
   transition: .3s;
 }
-
 
 #add-comment-button {
   width: 50%;
