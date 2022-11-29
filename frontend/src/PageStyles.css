@@ -14,14 +14,14 @@
 }
 
 .title-effect {
-  color: #B93E3E;
+  color: #da5767;
   position: relative;
 }
 
 .title-effect span {
   position: relative;
   display: inline-block;
-  color: #B93E3E;
+  color: #da5767;
   text-transform: uppercase;
   animation: waviy 2.5s infinite;
   animation-delay: calc(.2s * var(--i));
@@ -114,7 +114,8 @@
 
 /* BUTTON STYLING */
 .button {
-  background-color: #CC5871;
+  background-color: #da5767;
+  ;
   font-size: 1.5vw;
   width: 40%;
   margin: 1vw;
@@ -141,7 +142,7 @@
 }
 
 .link {
-  color: #aa344d;
+  color: #da5767;
 }
 
 .link:hover {
